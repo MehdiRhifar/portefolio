@@ -1,0 +1,185 @@
+---
+import { getCollection } from 'astro:content';
+import Header from '../components/Header.astro';
+import Sidebar from '../components/Sidebar.astro';
+import TimelineItem from '../components/TimelineItem.astro';
+
+// Récupérer expériences et formations
+const experiences = (await getCollection('experiences')).sort((a, b) => {
+  const dateA = parseInt(a.data.startDate.replace('-', ''));
+  const dateB = parseInt(b.data.startDate.replace('-', ''));
+  return dateB - dateA;
+});
+
+const education = (await getCollection('education')).sort((a, b) => {
+  const dateA = parseInt(a.data.startDate.replace('-', ''));
+  const dateB = parseInt(b.data.startDate.replace('-', ''));
+  return dateB - dateA;
+});
+
+// Formater les dates pour l'affichage
+function formatDate(startDate: string, endDate?: string) {
+  const [year, month] = startDate.split('-');
+  const months = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc'];
+  const start = month ? `${months[parseInt(month) - 1]} ${year}` : year;
+
+  if (!endDate) return `${start} - Aujourd'hui`;
+
+  const [endYear, endMonth] = endDate.split('-');
+  const end = endMonth ? `${months[parseInt(endMonth) - 1]} ${endYear}` : endYear;
+
+  return `${start} - ${end}`;
+}
+---
+
+<!DOCTYPE html>
+<html>
+  <Header title="Parcours | Mehdi Rhifar" />
+  <body>
+    <div class="content">
+      <Sidebar selectedItem="parcours" />
+      <nav class="main">
+        <div class="container">
+          <div class="back-nav-container">
+            <a href="/" class="back-nav-button w-inline-block" id="back-button">
+              <img src="/assets/back.svg" loading="lazy" alt="" class="back-nav-img" />
+              <div>Back</div>
+            </a>
+          </div>
+          <div class="content-container">
+            <h1>Mon Parcours</h1>
+            <p class="lead">
+              Vue d'ensemble de mes expériences et formations. Pour plus de détails sur mes réalisations, consultez mes <a href="/projects" class="inline-link">projets</a>.
+            </p>
+
+            <div class="timeline-section">
+              <div class="category-header">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                </svg>
+                <h2 class="timeline-category">Expériences professionnelles</h2>
+              </div>
+              <div class="timeline-container">
+                {experiences.map(exp => (
+                  <TimelineItem
+                    title={exp.data.role}
+                    subtitle={exp.data.company}
+                    date={formatDate(exp.data.startDate, exp.data.endDate)}
+                    location={exp.data.location}
+                    highlights={exp.data.achievements}
+                    type="experience"
+                  />
+                ))}
+              </div>
+
+              <div class="category-header education">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                  <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                </svg>
+                <h2 class="timeline-category">Formation</h2>
+              </div>
+              <div class="timeline-container">
+                {education.map(edu => (
+                  <TimelineItem
+                    title={edu.data.degree}
+                    subtitle={edu.data.school}
+                    date={formatDate(edu.data.startDate, edu.data.endDate)}
+                    location={edu.data.location}
+                    type="education"
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <style>
+      .lead {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.6;
+        margin-bottom: 3rem;
+      }
+
+      .inline-link {
+        color: #667eea;
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.2s ease;
+      }
+
+      .inline-link:hover {
+        border-bottom-color: #667eea;
+      }
+
+      .timeline-section {
+        margin-top: 2rem;
+      }
+
+      .category-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin: 2.5rem 0 1.5rem 0;
+      }
+
+      .category-header:first-child {
+        margin-top: 0;
+      }
+
+      .category-header svg {
+        color: #667eea;
+        flex-shrink: 0;
+      }
+
+      .category-header.education svg {
+        color: #10b981;
+      }
+
+      .timeline-category {
+        font-size: 1.5rem;
+        color: #fff;
+        margin: 0;
+        font-weight: 600;
+      }
+
+      .timeline-container {
+        margin-top: 1.5rem;
+      }
+
+      @media (max-width: 768px) {
+        .lead {
+          font-size: 1rem;
+          margin-bottom: 2rem;
+        }
+
+        .timeline-category {
+          font-size: 1.3rem;
+          margin: 2rem 0 1.25rem 0;
+        }
+      }
+    </style>
+
+    <script>
+      // Bouton retour qui utilise l'historique du navigateur
+      const backButton = document.getElementById('back-button');
+      if (backButton) {
+        backButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (window.history.length > 1) {
+            window.history.back();
+          } else {
+            // Si pas d'historique, rediriger vers la page d'accueil
+            window.location.href = '/';
+          }
+        });
+      }
+    </script>
+
+    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+  </body>
+</html>

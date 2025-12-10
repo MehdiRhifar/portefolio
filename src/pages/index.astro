@@ -3,11 +3,9 @@ import Header from "../components/Header.astro";
 import Sidebar from "../components/Sidebar.astro";
 ---
 
-
 <!DOCTYPE html>
-<html
->
-  <Header title="Sam Bernstein" />
+<html>
+<Header title="Mehdi Rhifar - Software Engineer"/>
   <body>
     <div class="content">
       <Sidebar selectedItem="home" />
@@ -15,76 +13,446 @@ import Sidebar from "../components/Sidebar.astro";
         <div class="container">
           <main class="fold-content-container">
             <div class="fold-content">
-              <h1>Hi, I'm Sam.<br />I build things for the web.</h1>
+                <h1>Salut, je suis Mehdi.<br/>Je développe des solutions logicielles.</h1>
               <p class="lead">
-                Experienced backend developer and cloud architect. A proactive team member dedicated to continuous learning, problem-solving, and aiding teammates in achieving quicker outcomes.
+                  Ingénieur logiciel spécialisé en développement backend et intelligence artificielle.
+                  Passionné par les défis techniques complexes et l'optimisation de systèmes à haute performance.
               </p>
             </div>
-            <a href="mailto:sam@overview.co.il	" class="button w-button">Contact</a>
+              <div class="cta-buttons">
+                  <a href="/projects" class="button w-button primary-button">Projets</a>
+                  <a href="/parcours" class="button w-button secondary-button">Parcours</a>
+              </div>
           </main>
-          <div class="projects-section">
-            <!-- Software Development -->
-            <a href="/software-development" class="projects-container">
-              <div class="single-projects-category">
-                <div class="projects-category-image-container">
-                  <img src="./assets/browser.svg" loading="lazy" alt="" class="projects-category-image" />
+
+            <!-- Section Domaines d'expertise -->
+            <div class="expertise-section">
+                <div class="section-header">
+                    <h2>Domaines d'expertise</h2>
                 </div>
+
+                <div class="expertise-grid">
+                    <div class="expertise-card">
+                        <div class="expertise-icon">⚡</div>
+                        <h3 class="expertise-title">Performance & Optimisation</h3>
+                        <p class="expertise-description">
+                            Architecture asynchrone, multi-threading, optimisation de latence et throughput
+                        </p>
               </div>
-              <div class="single-projects-content">
-                <h4>Software Development</h4>
-                <div class="tech-tools-container">
-                  <div class="mini-label-white gray-color">Technologies &amp; tools</div>
-                  <div class="chips-container chips-container-small-width">
-                    <div class="single-chip small-chip">React</div>
-                    <div class="single-chip small-chip">Next.js</div>
-                    <div class="single-chip small-chip">Node.js</div>
-                    <div class="single-chip small-chip">MongoDB</div>
-                    <div class="single-chip small-chip">Heroku</div>
-                    <div class="single-chip small-chip">RabbitMQ</div>
-                    <div class="single-chip small-chip">Express.js</div>
-                    <div class="single-chip small-chip">TypeScript</div>
-                    <div class="single-chip small-chip">NestJS</div>
-                    <div class="single-chip small-chip">Angular</div>
-                    <div class="single-chip small-chip">Postgres</div>
-                    <div class="single-chip small-chip">Linode</div>
-                  </div>
+
+                    <div class="expertise-card">
+                        <div class="expertise-icon">🏗️</div>
+                        <h3 class="expertise-title">Systèmes Distribués</h3>
+                        <p class="expertise-description">
+                            Microservices, event-driven architecture, scalabilité et résilience
+                        </p>
+                    </div>
+
+                    <div class="expertise-card">
+                        <div class="expertise-icon">🤖</div>
+                        <h3 class="expertise-title">IA/ML Avancé</h3>
+                        <p class="expertise-description">
+                            RAG avancé (fusion, multi-query), agents autonomes, orchestration LLM multi-modèles
+                        </p>
+                    </div>
+
+                    <div class="expertise-card">
+                        <div class="expertise-icon">🔧</div>
+                        <h3 class="expertise-title">Architecture Backend</h3>
+                        <p class="expertise-description">
+                            APIs robustes, pipelines de traitement complexes, ingénierie logicielle avancée
+                        </p>
+              </div>
+
+                    <div class="expertise-card">
+                        <div class="expertise-icon">💾</div>
+                        <h3 class="expertise-title">Optimisation Databases</h3>
+                        <p class="expertise-description">
+                            Requêtes avancées, indexation, recherche vectorielle, modélisation de données
+                        </p>
+                    </div>
+
+                    <div class="expertise-card">
+                        <div class="expertise-icon">⚙️</div>
+                        <h3 class="expertise-title">Concurrence & Parallélisme</h3>
+                        <p class="expertise-description">
+                            Programmation asynchrone (asyncio), multi-processing, gestion de la concurrence
+                        </p>
+              </div>
                 </div>
-              </div>
-            </a>
-            <!-- DevOps & Cloud -->
-            <a href="/devops" class="projects-container">
-              <div class="single-projects-category">
-                <div class="projects-category-image-container devops-img">
-                  <img src="./assets/database.svg" loading="lazy" alt="" class="projects-category-image" />
+
+                <div class="tech-stack">
+                    <p class="tech-stack-label">Stack technique</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Java</span>
+                        <span class="tech-tag">C++ / Rust</span>
+                        <span class="tech-tag">FastAPI</span>
+                        <span class="tech-tag">Spring Boot</span>
+                        <span class="tech-tag">LangChain</span>
+                        <span class="tech-tag">MongoDB</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">Kafka</span>
+                        <span class="tech-tag">Azure</span>
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">devops</span>
+                        <span class="tech-tag">Angular + (React / VueJs)</span>
+                    </div>
                 </div>
-              </div>
-              <div class="single-projects-content">
-                <h4>DevOps &amp;&nbsp;Cloud</h4>
-                <div class="tech-tools-container">
-                  <div class="mini-label-white gray-color">Technologies &amp; tools</div>
-                  <div class="chips-container chips-container-small-width">
-                    <div class="single-chip small-chip">Terraform</div>
-                    <div class="single-chip small-chip">Azure</div>
-                    <div class="single-chip small-chip">AWS</div>
-                    <div class="single-chip small-chip">Docker</div>
-                    <div class="single-chip small-chip">Kubernetes</div>
-                    <div class="single-chip small-chip">GitLab CI/CD</div>
-                    <div class="single-chip small-chip">RKE</div>
-                    <div class="single-chip small-chip">Node.js</div>
-                    <div class="single-chip small-chip">RabbitMQ</div>
-                    <div class="single-chip small-chip">Linux</div>
-                    <div class="single-chip small-chip">Bash</div>
-                    <div class="single-chip small-chip">Grafana</div>
-                    <div class="single-chip small-chip">Prometheus</div>
-                  </div>
+
+            <!-- Section Contact -->
+            <div class="contact-section">
+                <div class="section-header">
+                    <h2>Contact</h2>
                 </div>
-              </div>
-            </a>
+                <p class="contact-intro">
+                    Intéressé par une collaboration ou un échange technique ? N'hésitez pas à me contacter.
+                </p>
+                <div class="contact-grid">
+                    <button class="contact-card" id="email-card" data-email="mehdi.rhifar@gmail.com">
+                        <div class="contact-card-icon">✉️</div>
+                        <div class="contact-card-content">
+                            <div class="contact-card-label">Email</div>
+                            <div class="contact-card-value">mehdi.rhifar@gmail.com</div>
+                            <div class="contact-card-hint">Cliquer pour copier</div>
+                        </div>
+                    </button>
+
+                    <a href="https://github.com/MehdiRhifar" target="_blank" rel="noopener noreferrer" class="contact-card">
+                        <div class="contact-card-icon">💻</div>
+                        <div class="contact-card-content">
+                            <div class="contact-card-label">GitHub</div>
+                            <div class="contact-card-value">@MehdiRhifar</div>
+                        </div>
+                    </a>
+
+                    <a href="https://www.linkedin.com/in/mehdi-rhifar-1a90a1161/" target="_blank" rel="noopener noreferrer" class="contact-card">
+                        <div class="contact-card-icon">💼</div>
+                        <div class="contact-card-content">
+                            <div class="contact-card-label">LinkedIn</div>
+                            <div class="contact-card-value">Mehdi Rhifar</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
           </div>
         </div>
       </nav>
     </div>
-
-    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
   </body>
 </html>
+
+<style>
+    .fold-content h1 {
+        font-size: 2.75rem;
+        line-height: 1.2;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.8) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .fold-content .lead {
+        font-size: 1.2rem;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.75);
+        margin-bottom: 2rem;
+        max-width: 650px;
+    }
+
+    .cta-buttons {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+    }
+
+    .button {
+        padding: 0.875rem 1.75rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
+
+    .primary-button {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+    }
+
+    .primary-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .secondary-button {
+        background: rgba(255, 255, 255, 0.08);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .secondary-button:hover {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .expertise-section {
+        padding-top: 3rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2.5rem;
+    }
+
+    .section-header h2 {
+        font-size: 2rem;
+        margin: 0;
+        color: #fff;
+    }
+
+    .view-all-link {
+        color: rgba(255, 255, 255, 0.6);
+        text-decoration: none;
+        font-size: 0.95rem;
+        transition: color 0.3s ease;
+    }
+
+    .view-all-link:hover {
+        color: #667eea;
+    }
+
+    .expertise-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+    }
+
+    .expertise-card {
+        background: rgba(28, 28, 28, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 1.75rem;
+        transition: all 0.3s ease;
+    }
+
+    .expertise-card:hover {
+        background: rgba(32, 32, 32, 0.75);
+        border-color: rgba(255, 255, 255, 0.15);
+        transform: translateY(-4px);
+    }
+
+    .expertise-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        display: block;
+    }
+
+    .expertise-title {
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: #fff;
+        margin: 0 0 0.75rem 0;
+    }
+
+    .expertise-description {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.65);
+        line-height: 1.5;
+        margin: 0;
+    }
+
+    .tech-stack {
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .tech-stack-label {
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.5);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 1rem;
+    }
+
+    .tech-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .tech-tag {
+        padding: 0.4rem 0.9rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 6px;
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.7);
+        transition: all 0.2s ease;
+    }
+
+    .tech-tag:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.15);
+        color: rgba(255, 255, 255, 0.85);
+    }
+
+    .contact-section {
+        margin-top: 4rem;
+        padding-top: 3rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .contact-intro {
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.65);
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+
+    .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.25rem;
+    }
+
+    .contact-card {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+        background: rgba(28, 28, 28, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        width: 100%;
+        text-align: left;
+    }
+
+    button.contact-card {
+        font-family: inherit;
+    }
+
+    .contact-card:hover {
+        background: rgba(32, 32, 32, 0.75);
+        border-color: rgba(102, 126, 234, 0.4);
+        transform: translateY(-2px);
+    }
+
+    .contact-card-icon {
+        font-size: 2rem;
+        flex-shrink: 0;
+    }
+
+    .contact-card-content {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        min-width: 0;
+    }
+
+    .contact-card-label {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.5);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .contact-card-value {
+        font-size: 0.95rem;
+        color: #fff;
+        font-weight: 500;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .contact-card-hint {
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.4);
+        margin-top: 0.25rem;
+    }
+
+    #email-card.copied .contact-card-hint {
+        color: #10b981;
+    }
+
+    @media (max-width: 768px) {
+        .fold-content h1 {
+            font-size: 2rem;
+        }
+
+        .fold-content .lead {
+            font-size: 1.05rem;
+        }
+
+        .cta-buttons {
+            flex-direction: column;
+        }
+
+        .button {
+            text-align: center;
+        }
+
+        .expertise-grid {
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+        }
+
+        .expertise-card {
+            padding: 1.5rem;
+        }
+
+        .expertise-icon {
+            font-size: 2rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.5rem;
+        }
+
+        .contact-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .contact-card {
+            padding: 1.25rem;
+        }
+    }
+</style>
+
+<script>
+    // Copier l'email au clic
+    const emailCard = document.getElementById('email-card');
+    if (emailCard) {
+        emailCard.addEventListener('click', async () => {
+            const email = emailCard.getAttribute('data-email');
+            if (email) {
+                try {
+                    await navigator.clipboard.writeText(email);
+                    const hint = emailCard.querySelector('.contact-card-hint');
+                    if (hint) {
+                        const originalText = hint.textContent;
+                        hint.textContent = '✓ Copié !';
+                        emailCard.classList.add('copied');
+
+                        setTimeout(() => {
+                            hint.textContent = originalText;
+                            emailCard.classList.remove('copied');
+                        }, 2000);
+                    }
+                } catch (err) {
+                    console.error('Erreur lors de la copie:', err);
+                }
+            }
+        });
+    }
+</script>

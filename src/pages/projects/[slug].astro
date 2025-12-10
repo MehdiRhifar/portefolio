@@ -1,0 +1,281 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Header from '../../components/Header.astro';
+import Sidebar from '../../components/Sidebar.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map(project => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+type Props = {
+  project: CollectionEntry<'projects'>;
+};
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+---
+
+<!DOCTYPE html>
+<html>
+  <Header title={`${project.data.title} | Mehdi Rhifar`} />
+  <body>
+    <div class="content">
+      <Sidebar selectedItem="projects" />
+      <nav class="main">
+        <div class="container">
+          <div class="back-nav-container">
+            <a href="/projects" class="back-nav-button w-inline-block" id="back-button">
+              <img src="/assets/back.svg" loading="lazy" alt="" class="back-nav-img" />
+              <div>Back</div>
+            </a>
+          </div>
+          <div class="content-container">
+            <!-- Project Header with Badges -->
+            <div class="project-meta">
+              {project.data.featured && (
+                <span class="featured-badge">★ Featured</span>
+              )}
+              {project.data.company && (
+                <span class="company-badge">
+                  <span class="badge-icon">🏢</span>
+                  {project.data.company}
+                </span>
+              )}
+            </div>
+
+            <h1>{project.data.title}</h1>
+
+            <!-- Technologies & Tools -->
+            <div>
+              <div class="mini-label-white">Technologies & tools</div>
+              <div class="chips-container">
+                {project.data.tech.map(techItem => (
+                  <div class="single-chip">{techItem}</div>
+                ))}
+              </div>
+            </div>
+
+            <!-- Links -->
+            {project.data.links && (
+              <div class="project-links">
+                {project.data.links.github && (
+                  <a href={project.data.links.github} target="_blank" rel="noopener noreferrer" class="project-link">
+                    <img src="/assets/code.svg" alt="" class="link-icon" />
+                    GitHub
+                  </a>
+                )}
+                {project.data.links.demo && (
+                  <a href={project.data.links.demo} target="_blank" rel="noopener noreferrer" class="project-link">
+                    <img src="/assets/browser.svg" alt="" class="link-icon" />
+                    Lien du site
+                  </a>
+                )}
+                {project.data.links.npm && (
+                  <a href={project.data.links.npm} target="_blank" rel="noopener noreferrer" class="project-link">
+                    📦 NPM Package
+                  </a>
+                )}
+              </div>
+            )}
+
+            <!-- Project Content -->
+            <article class="project-content">
+              <Content />
+            </article>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <style>
+      .project-meta {
+        display: flex;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+      }
+
+      .featured-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.4rem 0.9rem;
+        background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 165, 0, 0.15) 100%);
+        border: 1px solid rgba(255, 215, 0, 0.3);
+        border-radius: 20px;
+        color: #ffd700;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+
+      .company-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.4rem 0.9rem;
+        background: rgba(99, 102, 241, 0.15);
+        border: 1px solid rgba(99, 102, 241, 0.3);
+        border-radius: 20px;
+        color: #a5b4fc;
+        font-size: 0.85rem;
+        font-weight: 500;
+      }
+
+      .badge-icon {
+        font-size: 0.95rem;
+      }
+
+      .tech-section {
+        margin: 0;
+      }
+
+      .project-links {
+        display: flex;
+        gap: 1rem;
+        margin: 2rem 0;
+        flex-wrap: wrap;
+      }
+
+      .project-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        color: #fff;
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
+
+      .project-link:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+      }
+
+      .link-icon {
+        width: 20px;
+        height: 20px;
+      }
+
+      .project-content {
+        line-height: 1.8;
+        font-size: 17px;
+      }
+
+      .project-content :global(h2) {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        font-size: 1.75rem;
+        color: #fff;
+      }
+
+      .project-content :global(h3) {
+        margin-top: 2rem;
+        margin-bottom: 0.75rem;
+        font-size: 1.35rem;
+        color: #fff;
+      }
+
+      .project-content :global(h4) {
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .project-content :global(p) {
+        margin-bottom: 1rem;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 17px;
+      }
+
+      .project-content :global(ul),
+      .project-content :global(ol) {
+        margin: 1rem 0 1rem 1.5rem;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .project-content :global(li) {
+        margin-bottom: 0.5rem;
+        font-size: 17px;
+        line-height: 1.7;
+      }
+
+      .project-content :global(pre) {
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 1.5rem;
+        overflow-x: auto;
+        margin: 1.5rem 0;
+      }
+
+      .project-content :global(code) {
+        font-family: 'Monaco', 'Courier New', monospace;
+        font-size: 0.9em;
+      }
+
+      .project-content :global(p code) {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+      }
+
+      .project-content :global(blockquote) {
+        border-left: 4px solid rgba(255, 255, 255, 0.2);
+        padding-left: 1.5rem;
+        margin: 1.5rem 0;
+        color: rgba(255, 255, 255, 0.7);
+        font-style: italic;
+      }
+
+      .project-content :global(strong) {
+        color: #fff;
+        font-weight: 600;
+      }
+
+      .project-content :global(a) {
+        color: #4a9eff;
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.2s ease;
+      }
+
+      .project-content :global(a:hover) {
+        border-bottom-color: #4a9eff;
+      }
+
+      @media (max-width: 768px) {
+        .project-links {
+          flex-direction: column;
+        }
+
+        .project-link {
+          justify-content: center;
+        }
+      }
+    </style>
+
+    <script>
+      // Bouton retour qui utilise l'historique du navigateur
+      const backButton = document.getElementById('back-button');
+      if (backButton) {
+        backButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (window.history.length > 1) {
+            window.history.back();
+          } else {
+            // Si pas d'historique, rediriger vers la page projets
+            window.location.href = '/projects';
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

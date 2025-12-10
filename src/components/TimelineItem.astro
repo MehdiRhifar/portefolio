@@ -1,0 +1,143 @@
+---
+interface Props {
+  title: string;
+  subtitle: string;
+  date: string;
+  location?: string;
+  highlights?: string[];
+  compact?: boolean;
+  type?: 'experience' | 'education';
+}
+
+const { title, subtitle, date, location, highlights, compact = false, type = 'experience' } = Astro.props;
+---
+
+<div class={`timeline-item ${compact ? 'compact' : ''}`}>
+  <div class={`timeline-marker ${type}`}></div>
+  <div class="timeline-content">
+    <div class="timeline-header">
+      <h3 class="timeline-title">{title}</h3>
+      <span class="timeline-date">{date}</span>
+    </div>
+    <div class="timeline-subtitle">{subtitle}</div>
+    {location && <div class="timeline-location">{location}</div>}
+    {highlights && highlights.length > 0 && !compact && (
+      <ul class="timeline-highlights">
+        {highlights.map(item => <li>{item}</li>)}
+      </ul>
+    )}
+  </div>
+</div>
+
+<style>
+  .timeline-item {
+    position: relative;
+    padding-left: 2.5rem;
+    padding-bottom: 2rem;
+    border-left: 2px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .timeline-item:last-child {
+    border-left-color: transparent;
+    padding-bottom: 0;
+  }
+
+  .timeline-item.compact {
+    padding-bottom: 1.5rem;
+  }
+
+  .timeline-marker {
+    position: absolute;
+    left: -7px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: 2px solid #0a0b0f;
+  }
+
+  .timeline-marker.education {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  }
+
+  .timeline-content {
+    background: rgba(24, 24, 24, 0.8);
+    padding: 1.25rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.3s ease;
+  }
+
+  .timeline-content:hover {
+    background: rgba(28, 28, 28, 0.9);
+    border-color: rgba(255, 255, 255, 0.12);
+    transform: translateX(4px);
+  }
+
+  .timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .timeline-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 0;
+  }
+
+  .timeline-date {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+    white-space: nowrap;
+  }
+
+  .timeline-subtitle {
+    font-size: 0.95rem;
+    color: #b3b3b3;
+    margin-bottom: 0.35rem;
+  }
+
+  .timeline-location {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 0.75rem;
+  }
+
+  .timeline-highlights {
+    list-style: none;
+    padding: 0;
+    margin: 0.75rem 0 0 0;
+  }
+
+  .timeline-highlights li {
+    font-size: 0.9rem;
+    color: #d0d0d0;
+    padding-left: 1.25rem;
+    margin-bottom: 0.4rem;
+    position: relative;
+  }
+
+  .timeline-highlights li:before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: #667eea;
+  }
+
+  @media (max-width: 768px) {
+    .timeline-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .timeline-date {
+      margin-top: 0.25rem;
+    }
+  }
+</style>

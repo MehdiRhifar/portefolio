@@ -1,0 +1,158 @@
+---
+import { getCollection } from 'astro:content';
+import Header from '../components/Header.astro';
+import Project from '../components/Project.astro';
+import Sidebar from '../components/Sidebar.astro';
+
+// Récupérer tous les projets et les trier par ordre
+const allProjects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+
+// Séparer les projets featured
+const featuredProjects = allProjects.filter(p => p.data.featured);
+const otherProjects = allProjects.filter(p => !p.data.featured);
+---
+
+<!DOCTYPE html>
+<html>
+  <Header title="Projets | Mehdi Rhifar" />
+  <body>
+    <div class="content">
+      <Sidebar selectedItem="projects" />
+      <nav class="main">
+        <div class="container">
+          <div class="back-nav-container">
+            <a href="/" class="back-nav-button w-inline-block">
+              <img src="/assets/back.svg" loading="lazy" alt="" class="back-nav-img" />
+              <div>Retour</div>
+            </a>
+          </div>
+
+          <div class="content-container">
+            <div class="page-header">
+              <h1>Mes Projets</h1>
+              <p class="page-subtitle">
+                Une sélection de projets professionnels et personnels qui illustrent mes compétences techniques
+                et ma passion pour le développement logiciel.
+              </p>
+            </div>
+
+            <!-- Projets Featured -->
+            {featuredProjects.length > 0 && (
+              <section class="items-container">
+                <div class="section-title-container">
+                  <h2 class="section-title">Projets phares</h2>
+                  <span class="featured-badge">★ Featured</span>
+                </div>
+                <div class="resource-items">
+                  {featuredProjects.map(project => (
+                    <Project
+                      slug={project.slug}
+                      title={project.data.title}
+                      desc={project.data.shortDesc}
+                      tech={project.data.tech}
+                      company={project.data.company}
+                    />
+                  ))}
+                </div>
+              </section>
+            )}
+
+            <!-- Autres projets -->
+            {otherProjects.length > 0 && (
+              <section class="items-container">
+                <h2 class="section-title">Autres projets</h2>
+                <div class="resource-items other-projects">
+                  {otherProjects.map(project => (
+                    <Project
+                      slug={project.slug}
+                      title={project.data.title}
+                      desc={project.data.shortDesc}
+                      tech={project.data.tech}
+                      company={project.data.company}
+                    />
+                  ))}
+                </div>
+              </section>
+            )}
+          </div>
+        </div>
+      </nav>
+    </div>
+  </body>
+</html>
+
+<style>
+  .page-header {
+    margin-bottom: 3rem;
+  }
+
+  .page-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.8) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .page-subtitle {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.65);
+    max-width: 700px;
+  }
+
+  .items-container {
+    margin-bottom: 4rem;
+  }
+
+  .section-title-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+    color: #fff;
+    margin: 0;
+  }
+
+  .featured-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.75rem;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 165, 0, 0.15) 100%);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 20px;
+    color: #ffd700;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .resource-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+  }
+
+  .other-projects {
+    opacity: 0.95;
+  }
+
+  @media (max-width: 768px) {
+    .page-header h1 {
+      font-size: 2rem;
+    }
+
+    .page-subtitle {
+      font-size: 1rem;
+    }
+
+    .resource-items {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
