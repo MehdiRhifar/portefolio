@@ -1,12 +1,7 @@
 /* ===================================
-   Minimal Color Touches
-   Very subtle, no hover effects
+   Accents de couleur primaire
+   Utilise les variables globales
    =================================== */
-
-:root {
-  --accent-blue: #5a9eff;
-  --accent-blue-dim: rgba(90, 158, 255, 0.6);
-}
 
 /* Navigation - Barre d'accent sur l'item actif uniquement */
 .nav-link-container {
@@ -16,14 +11,14 @@
 .nav-link-container::before {
   content: '';
   position: absolute;
-  left: -32px;
+  left: calc(-1 * var(--spacing-lg));
   top: 50%;
   transform: translateY(-50%);
   width: 2px;
   height: 0;
-  background: var(--accent-blue-dim);
+  background: var(--color-primary-dim);
   border-radius: 0 2px 2px 0;
-  transition: height 0.2s ease;
+  transition: height var(--transition-normal);
 }
 
 .nav-link-container.w--current::before {
@@ -31,43 +26,39 @@
 }
 
 .nav-link-container.w--current {
-  background: linear-gradient(90deg, rgba(90, 158, 255, 0.03) 0%, transparent 100%);
+  background: linear-gradient(90deg, var(--color-primary-subtle) 0%, transparent 100%);
 }
 
-/* Chips - Légère teinte bleue */
-.single-chip {
-  background: rgba(90, 158, 255, 0.05);
-  border: 1px solid rgba(90, 158, 255, 0.12);
-}
+/* Chips - Déjà gérées par les variables dans styles.css */
 
-/* Bouton Contact - Gradient très subtil */
+/* Bouton Contact - Gradient primaire */
 .button.w-button {
-  background: linear-gradient(135deg, #4a8fdf 0%, #5a6fc9 100%);
+  background: var(--gradient-primary);
 }
 
 /* Project Cards - Bordure gauche au hover */
 .single-item {
   border-left: 2px solid transparent;
-  transition: border-color 0.25s ease;
-    padding-left: 10px;
+  transition: border-color var(--transition-slow);
+  padding-left: 10px;
 }
 
 .single-item:hover {
-  border-left-color: rgba(90, 158, 255, 0.3);
+  border-left-color: var(--border-accent);
 }
 
 /* Back button - Couleur au hover */
 .back-nav-button {
-  transition: color 0.2s ease;
+  transition: color var(--transition-normal);
 }
 
 .back-nav-button:hover {
-  color: var(--accent-blue);
+  color: var(--color-primary);
 }
 
 /* Links dans le contenu */
 a:not(.nav-link-container):not(.projects-container):not(.button):not(.back-nav-button):not(.single-item) {
-  color: var(--accent-blue);
+  color: var(--color-primary);
 }
 
 /* Scrollbar - Couleur subtile */
@@ -76,53 +67,53 @@ a:not(.nav-link-container):not(.projects-container):not(.button):not(.back-nav-b
 }
 
 .main::-webkit-scrollbar-track {
-  background: #1c1c1c;
+  background: var(--bg-sidebar);
 }
 
 .main::-webkit-scrollbar-thumb {
-  background: rgba(90, 158, 255, 0.35);
+  background: var(--color-primary-light);
   border-radius: 3px;
 }
 
 .main::-webkit-scrollbar-thumb:hover {
-  background: rgba(90, 158, 255, 0.5);
+  background: var(--color-primary-dim);
 }
 
 /* Mini labels - Légère touche bleue */
 .mini-label-white {
-  color: rgba(90, 158, 255, 0.85);
+  color: var(--color-primary-dim);
 }
 
 /* Project detail page - Links */
 .project-link {
-  transition: border-color 0.2s ease;
+  transition: border-color var(--transition-normal);
 }
 
 .project-link:hover {
-  border-color: rgba(90, 158, 255, 0.25);
+  border-color: var(--color-primary-light);
 }
 
 /* View more text on project cards */
 .view-more {
-  color: var(--accent-blue-dim);
-  transition: color 0.2s ease;
+  color: var(--color-primary-dim);
+  transition: color var(--transition-normal);
 }
 
 .project-card:hover .view-more {
-  color: var(--accent-blue);
+  color: var(--color-primary);
 }
 
 /* Responsive */
 @media screen and (max-width: 991px) {
-  /* Changer le fond blanc du menu mobile pour un fond sombre */
+  /* Menu mobile avec fond sombre */
   .w-nav-menu.is-visible {
-    background: #1c1c1c !important;
+    background: var(--bg-sidebar) !important;
   }
 
-  /* L'item actif reste visible avec son style normal */
+  /* L'item actif reste visible avec son style */
   .w-nav-menu.is-open .nav-link-container.w--current {
-    background: rgba(90, 158, 255, 0.15);
-    color: #fff;
+    background: var(--color-primary-very-light);
+    color: var(--color-text-primary);
   }
 
   .nav-link-container::before {
@@ -132,6 +123,6 @@ a:not(.nav-link-container):not(.projects-container):not(.button):not(.back-nav-b
 
 @media screen and (max-width: 767px) {
   .nav-link-container::before {
-    left: -16px;
+    left: calc(-1 * var(--spacing-sm));
   }
 }

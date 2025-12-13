@@ -1,0 +1,113 @@
+/* ========================================
+   SYSTÈME DE DESIGN - VARIABLES GLOBALES
+   ======================================== */
+
+:root {
+    /* ========================================
+       Couleurs principales
+       ======================================== */
+
+    /* Couleur primaire - Bleu */
+    --color-primary: #5a9eff;
+    --color-primary-start: #4a8fdf;
+    --color-primary-end: #5a6fc9;
+    --color-primary-dim: rgba(90, 158, 255, 0.6);
+    --color-primary-light: rgba(90, 158, 255, 0.3);
+    --color-primary-very-light: rgba(90, 158, 255, 0.12);
+    --color-primary-subtle: rgba(90, 158, 255, 0.05);
+
+    /* Gradient primaire */
+    --gradient-primary: linear-gradient(135deg, var(--color-primary-start) 0%, var(--color-primary-end) 100%);
+
+    /* ========================================
+       Backgrounds
+       ======================================== */
+
+    --bg-body: #161616;
+    --bg-sidebar: #1c1c1c;
+    --bg-card-default: rgba(28, 28, 28, 0.4);
+    --bg-card-elevated: rgba(28, 28, 28, 0.6);
+    --bg-card-hover: rgba(32, 32, 32, 0.75);
+    --bg-card-solid: #1c1c1c;
+    --bg-card-solid-hover: #202020;
+    --bg-button: #1c1c1c;
+    --bg-button-hover: #202020;
+    --bg-chip: rgba(90, 158, 255, 0.05);
+
+    /* Overlays */
+    --bg-overlay-light: rgba(255, 255, 255, 0.05);
+    --bg-overlay-medium: rgba(255, 255, 255, 0.08);
+    --bg-overlay-strong: rgba(255, 255, 255, 0.12);
+
+    /* ========================================
+       Couleurs de texte
+       ======================================== */
+
+    --color-text-primary: #ffffff;
+    --color-text-secondary: rgba(255, 255, 255, 0.85);
+    --color-text-muted: rgba(255, 255, 255, 0.65);
+    --color-text-dimmed: rgba(255, 255, 255, 0.5);
+    --color-text-subtle: rgba(255, 255, 255, 0.4);
+    --color-text-gray: #a8a8a8;
+    --color-text-dark: #333333;
+
+    /* ========================================
+       Bordures
+       ======================================== */
+
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-default: rgba(255, 255, 255, 0.1);
+    --border-medium: rgba(255, 255, 255, 0.15);
+    --border-strong: rgba(255, 255, 255, 0.2);
+    --border-dimmed: rgba(255, 255, 255, 0.5);
+    --border-separator: #353535;
+    --border-accent: rgba(90, 158, 255, 0.3);
+    --border-accent-hover: rgba(90, 158, 255, 0.4);
+    --border-accent-chip: rgba(90, 158, 255, 0.12);
+
+    /* ========================================
+       Espacements
+       ======================================== */
+
+    --spacing-xs: 0.5rem;      /* 8px */
+    --spacing-sm: 1rem;        /* 16px */
+    --spacing-md: 1.5rem;      /* 24px */
+    --spacing-lg: 2rem;        /* 32px */
+    --spacing-xl: 2.5rem;      /* 40px */
+    --spacing-2xl: 3rem;       /* 48px */
+    --spacing-3xl: 4rem;       /* 64px */
+    --spacing-4xl: 5rem;       /* 80px */
+
+    /* ========================================
+       Border radius
+       ======================================== */
+
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-full: 100px;
+
+    /* ========================================
+       Transitions
+       ======================================== */
+
+    --transition-fast: all 0.12s ease;
+    --transition-normal: all 0.2s ease;
+    --transition-slow: all 0.3s ease;
+
+    /* ========================================
+       Shadows
+       ======================================== */
+
+    --shadow-sm: 0 1px 1px rgba(255, 255, 255, 0.24), 0 -1px 1px rgba(255, 255, 255, 0.24);
+    --shadow-button: 0 2px 4px rgba(8, 8, 8, 0.82);
+    --shadow-accent: 0 8px 20px rgba(90, 158, 255, 0.4);
+
+    /* ========================================
+       Autres couleurs
+       ======================================== */
+
+    --color-success: #10b981;
+    --color-warning: #f59e0b;
+    --color-error: #ef4444;
+}

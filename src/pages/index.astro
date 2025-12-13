@@ -15,9 +15,23 @@ import Sidebar from "../components/Sidebar.astro";
             <div class="fold-content">
                 <h1>Salut, je suis Mehdi.<br/>Je développe des solutions logicielles.</h1>
               <p class="lead">
-                  Ingénieur logiciel spécialisé en développement backend et intelligence artificielle.
+                  Ingénieur logiciel spécialisé en développement backend.<br>
                   Passionné par les défis techniques complexes et l'optimisation de systèmes à haute performance.
               </p>
+
+                <!-- Section Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">10 000+</div>
+                        <div class="stat-label">Utilisateurs</div>
+                        <div class="stat-description">Traitement temps réel concurrent (chatbot)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">+1M</div>
+                        <div class="stat-label">Messages</div>
+                        <div class="stat-description">Base de données NoSql optimisée (chatbot)</div>
+                    </div>
+                </div>
             </div>
               <div class="cta-buttons">
                   <a href="/projects" class="button w-button primary-button">Projets</a>
@@ -37,14 +51,6 @@ import Sidebar from "../components/Sidebar.astro";
                         <h3 class="expertise-title">Performance & Optimisation</h3>
                         <p class="expertise-description">
                             Architecture asynchrone, multi-threading, optimisation de latence et throughput
-                        </p>
-              </div>
-
-                    <div class="expertise-card">
-                        <div class="expertise-icon">🏗️</div>
-                        <h3 class="expertise-title">Systèmes Distribués</h3>
-                        <p class="expertise-description">
-                            Microservices, event-driven architecture, scalabilité et résilience
                         </p>
                     </div>
 
@@ -71,14 +77,6 @@ import Sidebar from "../components/Sidebar.astro";
                             Requêtes avancées, indexation, recherche vectorielle, modélisation de données
                         </p>
                     </div>
-
-                    <div class="expertise-card">
-                        <div class="expertise-icon">⚙️</div>
-                        <h3 class="expertise-title">Concurrence & Parallélisme</h3>
-                        <p class="expertise-description">
-                            Programmation asynchrone (asyncio), multi-processing, gestion de la concurrence
-                        </p>
-              </div>
                 </div>
 
                 <div class="tech-stack">
@@ -90,12 +88,12 @@ import Sidebar from "../components/Sidebar.astro";
                         <span class="tech-tag">FastAPI</span>
                         <span class="tech-tag">Spring Boot</span>
                         <span class="tech-tag">LangChain</span>
-                        <span class="tech-tag">MongoDB</span>
-                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">SQL</span>
+                        <span class="tech-tag">NoSQL (MongoDB...)</span>
                         <span class="tech-tag">Kafka</span>
                         <span class="tech-tag">Azure</span>
                         <span class="tech-tag">Docker</span>
-                        <span class="tech-tag">devops</span>
+                        <span class="tech-tag">Devops</span>
                         <span class="tech-tag">Angular + (React / VueJs)</span>
                     </div>
                 </div>
@@ -143,10 +141,18 @@ import Sidebar from "../components/Sidebar.astro";
 </html>
 
 <style>
+    /* ========================================
+       Page d'accueil - Styles personnalisés
+       Utilise les variables CSS globales
+       ======================================== */
+
+    /* ========================================
+       Typography & Hero Section
+       ======================================== */
     .fold-content h1 {
         font-size: 2.75rem;
         line-height: 1.2;
-        margin-bottom: 1.5rem;
+        margin-bottom: var(--spacing-md);
         background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.8) 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -156,64 +162,122 @@ import Sidebar from "../components/Sidebar.astro";
     .fold-content .lead {
         font-size: 1.2rem;
         line-height: 1.7;
-        color: rgba(255, 255, 255, 0.75);
-        margin-bottom: 2rem;
+        color: var(--color-text-secondary);
+        margin-bottom: var(--spacing-lg);
         max-width: 650px;
     }
 
+    /* ========================================
+       Stats Section
+       ======================================== */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1.25rem;
+        margin-top: var(--spacing-xl);
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .stat-card {
+        background: var(--bg-card-default);
+        border: 1px solid var(--border-default);
+        border-radius: var(--radius-lg);
+        padding: var(--spacing-md) 1.25rem;
+        text-align: center;
+        transition: var(--transition-normal);
+    }
+
+    .stat-card:hover {
+        background: var(--bg-card-hover);
+        border-color: var(--border-accent);
+        transform: translateY(-3px);
+    }
+
+    .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: var(--spacing-xs);
+        padding: 0.3rem;
+    }
+
+    .stat-label {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 500;
+        margin-bottom: 0.25rem;
+    }
+
+    .stat-description {
+        font-size: 0.75rem;
+        color: var(--color-text-dimmed);
+        line-height: 1.4;
+    }
+
+    /* ========================================
+       CTA Buttons
+       ======================================== */
+
     .cta-buttons {
         display: flex;
-        gap: 1rem;
-        margin-top: 2rem;
+        gap: var(--spacing-sm);
+        margin-top: var(--spacing-lg);
         flex-wrap: wrap;
     }
 
     .button {
         padding: 0.875rem 1.75rem;
-        border-radius: 8px;
+        border-radius: var(--radius-md);
         text-decoration: none;
         font-weight: 500;
-        transition: all 0.3s ease;
+        transition: var(--transition-normal);
         display: inline-block;
     }
 
     .primary-button {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
+        background: var(--gradient-primary);
+        color: var(--color-text-primary);
     }
 
     .primary-button:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        box-shadow: 0 8px 20px var(--border-accent-hover);
     }
 
     .secondary-button {
-        background: rgba(255, 255, 255, 0.08);
-        color: white;
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: var(--bg-overlay-medium);
+        color: var(--color-text-primary);
+        border: 1px solid var(--border-strong);
     }
 
     .secondary-button:hover {
-        background: rgba(255, 255, 255, 0.12);
+        background: var(--bg-overlay-strong);
         border-color: rgba(255, 255, 255, 0.3);
     }
 
+    /* ========================================
+       Expertise Section
+       ======================================== */
+
     .expertise-section {
-        padding-top: 3rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.5);
+        padding-top: var(--spacing-2xl);
+        border-top: 1px solid var(--border-dimmed);
     }
 
     .section-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 2.5rem;
+        margin-bottom: var(--spacing-xl);
     }
 
     .section-header h2 {
         font-size: 2rem;
         margin: 0;
-        color: #fff;
+        color: var(--color-text-primary);
     }
 
     .view-all-link {
@@ -224,95 +288,103 @@ import Sidebar from "../components/Sidebar.astro";
     }
 
     .view-all-link:hover {
-        color: #667eea;
+        color: var(--color-primary-start);
     }
 
     .expertise-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1.5rem;
-        margin-bottom: 3rem;
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-2xl);
     }
 
     .expertise-card {
-        background: rgba(28, 28, 28, 0.6);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 12px;
+        background: var(--bg-card-elevated);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg);
         padding: 1.75rem;
-        transition: all 0.3s ease;
+        transition: var(--transition-normal);
     }
 
     .expertise-card:hover {
-        background: rgba(32, 32, 32, 0.75);
-        border-color: rgba(255, 255, 255, 0.15);
+        background: var(--bg-card-hover);
+        border-color: var(--border-medium);
         transform: translateY(-4px);
     }
 
     .expertise-icon {
         font-size: 2.5rem;
-        margin-bottom: 1rem;
+        margin-bottom: var(--spacing-sm);
         display: block;
     }
 
     .expertise-title {
         font-size: 1.15rem;
         font-weight: 600;
-        color: #fff;
+        color: var(--color-text-primary);
         margin: 0 0 0.75rem 0;
     }
 
     .expertise-description {
         font-size: 0.9rem;
-        color: rgba(255, 255, 255, 0.65);
+        color: var(--color-text-muted);
         line-height: 1.5;
         margin: 0;
     }
 
+    /* ========================================
+       Tech Stack
+       ======================================== */
+
     .tech-stack {
-        padding-top: 2rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding-top: var(--spacing-lg);
+        border-top: 1px solid var(--border-subtle);
     }
 
     .tech-stack-label {
         font-size: 0.85rem;
-        color: rgba(255, 255, 255, 0.5);
+        color: var(--color-text-dimmed);
         text-transform: uppercase;
         letter-spacing: 0.1em;
-        margin-bottom: 1rem;
+        margin-bottom: var(--spacing-sm);
     }
 
     .tech-tags {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.5rem;
+        gap: var(--spacing-xs);
     }
 
     .tech-tag {
         padding: 0.4rem 0.9rem;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 6px;
+        background: var(--bg-overlay-light);
+        border: 1px solid var(--border-default);
+        border-radius: var(--radius-sm);
         font-size: 0.85rem;
         color: rgba(255, 255, 255, 0.7);
-        transition: all 0.2s ease;
+        transition: var(--transition-fast);
     }
 
     .tech-tag:hover {
-        background: rgba(255, 255, 255, 0.08);
-        border-color: rgba(255, 255, 255, 0.15);
+        background: var(--bg-overlay-medium);
+        border-color: var(--border-medium);
         color: rgba(255, 255, 255, 0.85);
     }
 
+    /* ========================================
+       Contact Section
+       ======================================== */
+
     .contact-section {
-        margin-top: 4rem;
-        padding-top: 3rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin-top: var(--spacing-3xl);
+        padding-top: var(--spacing-2xl);
+        border-top: 1px solid var(--border-default);
     }
 
     .contact-intro {
         font-size: 1rem;
-        color: rgba(255, 255, 255, 0.65);
-        margin-bottom: 2rem;
+        color: var(--color-text-muted);
+        margin-bottom: var(--spacing-lg);
         line-height: 1.6;
     }
 
@@ -326,12 +398,12 @@ import Sidebar from "../components/Sidebar.astro";
         display: flex;
         align-items: center;
         gap: 1.25rem;
-        background: rgba(28, 28, 28, 0.6);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 12px;
-        padding: 1.5rem;
+        background: var(--bg-card-elevated);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg);
+        padding: var(--spacing-md);
         text-decoration: none;
-        transition: all 0.3s ease;
+        transition: var(--transition-normal);
         cursor: pointer;
         width: 100%;
         text-align: left;
@@ -342,8 +414,8 @@ import Sidebar from "../components/Sidebar.astro";
     }
 
     .contact-card:hover {
-        background: rgba(32, 32, 32, 0.75);
-        border-color: rgba(102, 126, 234, 0.4);
+        background: var(--bg-card-hover);
+        border-color: var(--border-accent-hover);
         transform: translateY(-2px);
     }
 
@@ -361,14 +433,14 @@ import Sidebar from "../components/Sidebar.astro";
 
     .contact-card-label {
         font-size: 0.8rem;
-        color: rgba(255, 255, 255, 0.5);
+        color: var(--color-text-dimmed);
         text-transform: uppercase;
         letter-spacing: 0.05em;
     }
 
     .contact-card-value {
         font-size: 0.95rem;
-        color: #fff;
+        color: var(--color-text-primary);
         font-weight: 500;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -377,13 +449,17 @@ import Sidebar from "../components/Sidebar.astro";
 
     .contact-card-hint {
         font-size: 0.75rem;
-        color: rgba(255, 255, 255, 0.4);
+        color: var(--color-text-subtle);
         margin-top: 0.25rem;
     }
 
     #email-card.copied .contact-card-hint {
-        color: #10b981;
+        color: var(--color-success);
     }
+
+    /* ========================================
+       Responsive (Mobile)
+       ======================================== */
 
     @media (max-width: 768px) {
         .fold-content h1 {
@@ -392,6 +468,19 @@ import Sidebar from "../components/Sidebar.astro";
 
         .fold-content .lead {
             font-size: 1.05rem;
+        }
+
+        .stats-grid {
+            grid-template-columns: 1fr;
+            gap: var(--spacing-sm);
+        }
+
+        .stat-card {
+            padding: 1.25rem var(--spacing-sm);
+        }
+
+        .stat-number {
+            font-size: 1.75rem;
         }
 
         .cta-buttons {
@@ -408,7 +497,7 @@ import Sidebar from "../components/Sidebar.astro";
         }
 
         .expertise-card {
-            padding: 1.5rem;
+            padding: var(--spacing-md);
         }
 
         .expertise-icon {
