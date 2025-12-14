@@ -1,7 +1,10 @@
 ---
 title: "Running Tools"
 shortDesc:
-  - "Application minimaliste et reactive pour aider les coureurs"
+  - "Calculateur VMA et temps de passage pour runners"
+  - "Interface minimaliste - React + TailwindCSS"
+  - "Performance optimale - Déployé sur Vercel"
+  - "Open source - Disponible sur GitHub"
 tech: ["React", "TailwindCSS", "Vite", "Vercel"]
 category: "personal"
 featured: true

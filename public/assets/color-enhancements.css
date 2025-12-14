@@ -43,6 +43,11 @@
   padding-left: 10px;
 }
 
+/* Exception : si .single-item a aussi .card, ne pas appliquer le padding-left */
+.single-item.card {
+  padding-left: 1.75rem;
+}
+
 .single-item:hover {
   border-left-color: var(--border-accent);
 }

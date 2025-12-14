@@ -668,3 +668,21 @@ p {
         height: 64px;
     }
 }
+
+/* ========================================
+   Card Component - Global Styles
+   ======================================== */
+
+.card {
+    background: var(--bg-card-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    transition: var(--transition-normal);
+}
+
+.card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--border-medium);
+    transform: translateY(-4px);
+}

@@ -1,10 +1,10 @@
 ---
 title: "Archi+ - Chatbot IA"
 shortDesc:
-  - "Chatbot conversationnel multimodal pour le groupe de la CDC"
-  - "ReAct : Reasoning + Acting  -> Utilisation de tools externes (recherche web, images)"
-  - "Système RAG avancé -> chunking sémantique, RAG Fusion et agents autonomes"
-  - "Optimisation de la masse d'utilisateurs et de la latence -> gestion asynchrones, multi-threading et multi-processing"
+  - "10 000+ utilisateurs - Architecture temps réel async optimisée"
+  - "+1M messages traités - Base MongoDB haute performance"
+  - "Multimodal - Génération de texte, code et images"
+  - "RAG avancé - Fusion, multi-query et agents autonomes"
 tech: ["Python FastAPI" , "Angular", "LLM / RAG / LangChain", "Azure AI Search", "MongoDB"]
 category: "professional"
 featured: true
@@ -14,9 +14,9 @@ company: "Caisse des Dépôts (ICDC)"
 
 ## Vue d'ensemble
 
-Développement from scratch d'un chatbot IA conversationnel multimodal pour le groupe de la Caisse des Dépôts, ancré dans les données internes de l'entreprise.
+Chatbot IA conversationnel multimodal pour le groupe de la Caisse des Dépôts, ancré dans les données internes de l'entreprise.
 
-**Principales réalisations** :
+### Mes Réalisations (Projet from scratch) :
 - Architecture multi-modèle avec orchestration intelligente (Mistral pour le conversationnel, Codestral pour le code, Flux pour la génération d'images)
 - Pipeline RAG avancé avec chunking sémantique, RAG Fusion et agents autonomes pour traiter les documents internes complexes
 - Système d'agents ReAct (Reasoning + Acting) avec accès à des outils externes (recherche web, génération d'images)
