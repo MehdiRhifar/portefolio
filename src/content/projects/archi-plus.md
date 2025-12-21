@@ -2,7 +2,7 @@
 title: "Archi+ - Chatbot IA"
 shortDesc:
   - "10 000+ utilisateurs - Architecture temps réel async optimisée"
-  - "+1M messages traités - Base MongoDB haute performance"
+  - "1M+ messages traités - Base MongoDB haute performance"
   - "Multimodal - Génération de texte, code et images"
   - "RAG avancé - Fusion, multi-query et agents autonomes"
 tech: ["Python FastAPI" , "Angular", "LLM / RAG / LangChain", "Azure AI Search", "MongoDB"]
