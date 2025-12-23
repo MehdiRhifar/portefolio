@@ -4,7 +4,7 @@ shortDesc:
   - "ML prédictif pour compléter bilans carbone incomplets"
   - "Architecture event-driven - Microservices Kafka"
   - "API REST Spring Boot + Python - Communication asynchrone scalable"
-tech: ["Java", "Spring Boot", "Python", "Machine Learning", "Kafka", "PostgreSQL", "Docker"]
+tech: ["Java Spring Boot", "Kafka", "PostgreSQL",  "Machine Learning", "Docker"]
 category: "professional"
 featured: true
 order: 2

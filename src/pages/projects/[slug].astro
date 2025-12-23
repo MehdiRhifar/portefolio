@@ -65,18 +65,27 @@ const { Content } = await project.render();
                 {project.data.links.github && (
                   <a href={project.data.links.github} target="_blank" rel="noopener noreferrer" class="project-link">
                     <img src="/assets/code.svg" alt="" class="link-icon" />
-                    GitHub
+                    <div class="link-content">
+                      <div class="link-title">GitHub</div>
+                      <div class="link-url">{project.data.links.github.replace(/^https?:\/\//, '').replace("github.com/", '')}</div>
+                    </div>
                   </a>
                 )}
                 {project.data.links.demo && (
                   <a href={project.data.links.demo} target="_blank" rel="noopener noreferrer" class="project-link">
                     <img src="/assets/browser.svg" alt="" class="link-icon" />
-                    Lien du site
+                    <div class="link-content">
+                      <div class="link-title">Démo en ligne</div>
+                      <div class="link-url">{project.data.links.demo.replace(/^https?:\/\//, '')}</div>
+                    </div>
                   </a>
                 )}
                 {project.data.links.npm && (
                   <a href={project.data.links.npm} target="_blank" rel="noopener noreferrer" class="project-link">
-                    📦 NPM Package
+                    <div class="link-content">
+                      <div class="link-title">📦 NPM Package</div>
+                      <div class="link-url">{project.data.links.npm.replace(/^https?:\/\//, '')}</div>
+                    </div>
                   </a>
                 )}
               </div>
@@ -142,8 +151,8 @@ const { Content } = await project.render();
       .project-link {
         display: inline-flex;
         align-items: center;
-        gap: 0.5rem;
-        padding: 0.75rem 1.5rem;
+        gap: 0.75rem;
+        padding: 1rem 1.5rem;
         background: rgba(255, 255, 255, 0.05);
         border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 8px;
@@ -159,8 +168,27 @@ const { Content } = await project.render();
       }
 
       .link-icon {
-        width: 20px;
-        height: 20px;
+        width: 22px;
+        height: 22px;
+        flex-shrink: 0;
+      }
+
+      .link-content {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+
+      .link-title {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #fff;
+      }
+
+      .link-url {
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.5);
+        font-family: 'Monaco', 'Courier New', monospace;
       }
 
       .project-content {
