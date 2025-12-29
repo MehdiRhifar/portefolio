@@ -686,3 +686,29 @@ p {
     border-color: var(--border-medium);
     transform: translateY(-4px);
 }
+
+/* ========================================
+   Table Component - Markdown Tables
+   ======================================== */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    opacity: 1;
+    margin: 1rem 0;
+}
+
+th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    color: var(--color-text-primary);
+    opacity: 1;
+}
+
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    color: var(--color-text-primary);
+    opacity: 1;
+}
