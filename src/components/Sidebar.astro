@@ -1,5 +1,10 @@
 ---
-const { selectedItem } = Astro.props;
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import {useTranslations} from '../i18n/utils';
+
+const {selectedItem, locale = 'fr'} = Astro.props;
+const t = useTranslations(locale);
+const currentPath = Astro.url.pathname;
 ---
 
 <aside
@@ -11,7 +16,7 @@ const { selectedItem } = Astro.props;
   class="sidebar w-nav"
 >
   <div class="nav-content">
-    <a href="/" class="w-nav-brand" aria-label="home">
+      <a href={`/${locale}/`} class="w-nav-brand" aria-label="home">
       <div class="niv-data">
         <img
           src="/assets/personal_picture_square.jpg"
@@ -21,14 +26,14 @@ const { selectedItem } = Astro.props;
         />
         <div>
           <div class="label-white">Mehdi Rhifar</div>
-          <div class="label-gray">Software Engineer</div>
+            <div class="label-gray">{t.meta.jobTitle}</div>
         </div>
       </div>
     </a>
 
     <nav role="navigation" class="w-nav-menu">
       <a
-        href="/"
+              href={`/${locale}/`}
         class={`nav-link-container w-inline-block ${
           selectedItem === 'home' ? 'w--current' : ''
         }`}
@@ -39,10 +44,10 @@ const { selectedItem } = Astro.props;
           alt=""
           class="nav-link-image"
         />
-        <div>Home</div>
+          <div>{t.nav.home}</div>
       </a>
       <a
-        href="/projects"
+              href={`/${locale}/projects`}
         class={`nav-link-container w-inline-block ${
           selectedItem === 'projects' ? 'w--current' : ''
         }`}
@@ -56,10 +61,10 @@ const { selectedItem } = Astro.props;
           alt=""
           class="nav-link-image"
         />
-        <div>Projets</div>
+          <div>{t.nav.projects}</div>
       </a>
       <a
-        href="/parcours"
+              href={`/${locale}/parcours`}
         class={`nav-link-container w-inline-block ${
           selectedItem === 'parcours' ? 'w--current' : ''
         }`}
@@ -70,11 +75,13 @@ const { selectedItem } = Astro.props;
           alt=""
           class="nav-link-image"
         />
-        <div>Parcours</div>
+          <div>{t.nav.parcours}</div>
       </a>
     </nav>
 
-    <div
+      <LanguageSwitcher currentLocale={locale} currentPath={currentPath}/>
+
+      <div
       class="navbar-icon-button w-nav-button"
       style="-webkit-user-select: text;"
       aria-label="menu"

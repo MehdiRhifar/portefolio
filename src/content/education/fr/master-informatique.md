@@ -1,4 +1,6 @@
 ---
+lang: "fr"
+baseSlug: "master-informatique"
 school: "Université Gustave Eiffel"
 degree: "Master Logiciel et Ingénierie des données"
 field: "Intelligence Artificielle & Data Science"

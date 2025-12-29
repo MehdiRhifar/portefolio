@@ -1,0 +1,219 @@
+---
+import {getCollection} from 'astro:content';
+import {useTranslations} from '../../../i18n/utils';
+import Header from '../../../components/Header.astro';
+import Project from '../../../components/Project.astro';
+import Sidebar from '../../../components/Sidebar.astro';
+
+export function getStaticPaths() {
+    return [
+        {params: {locale: 'fr'}},
+        {params: {locale: 'en'}}
+    ];
+}
+
+const {locale} = Astro.params;
+const t = useTranslations(locale);
+
+// Récupérer tous les projets du dossier locale et les trier par ordre
+const allProjects = (await getCollection('projects', (entry) => {
+    return entry.id.startsWith(`${locale}/`);
+})).sort((a, b) => a.data.order - b.data.order);
+
+// Séparer les projets par catégorie
+const professionalProjects = allProjects.filter(p => p.data.category === 'professional');
+const personalProjects = allProjects.filter(p => p.data.category === 'personal');
+---
+
+<!DOCTYPE html>
+<html>
+<Header title={`${t.projects.title} | Mehdi Rhifar`}/>
+<body>
+<div class="content">
+    <Sidebar selectedItem="projects" locale={locale}/>
+    <nav class="main">
+        <div class="container">
+            <div class="back-nav-container">
+                <a href={`/${locale}/`} class="back-nav-button w-inline-block">
+                    <img src="/assets/back.svg" loading="lazy" alt="" class="back-nav-img"/>
+                    <div>{t.common.back}</div>
+                </a>
+            </div>
+
+            <div class="content-container">
+                <div class="page-header">
+                    <h1>{t.projects.title}</h1>
+                    <p class="page-subtitle">
+                        {t.projects.subtitle}
+                    </p>
+                </div>
+
+                <!-- Projets Professionnels -->
+                {professionalProjects.length > 0 && (
+                        <section class="items-container">
+                            <div class="section-title-container">
+                                <h2 class="section-title">{t.projects.professional.title}</h2>
+                                <span class="category-badge pro-badge">{t.projects.count(professionalProjects.length)}</span>
+                            </div>
+                            <p class="section-description">
+                                {t.projects.professional.description}
+                            </p>
+                            <div class="resource-items">
+                                {professionalProjects.map(project => (
+                                        <Project
+                                                slug={project.data.baseSlug}
+                                                title={project.data.title}
+                                                desc={project.data.shortDesc}
+                                                tech={project.data.tech}
+                                                company={project.data.company}
+                                                locale={locale}
+                                        />
+                                ))}
+                            </div>
+                        </section>
+                )}
+
+                <!-- Projets Personnels -->
+                {personalProjects.length > 0 && (
+                        <section class="items-container">
+                            <div class="section-title-container">
+                                <h2 class="section-title">{t.projects.personal.title}</h2>
+                                <span class="category-badge personal-badge">⚡ {personalProjects.length}
+                                    projet{personalProjects.length > 1 ? 's' : ''}</span>
+                            </div>
+                            <p class="section-description">
+                                {t.projects.personal.description}
+                            </p>
+                            <div class="resource-items">
+                                {personalProjects.map(project => (
+                                        <Project
+                                                slug={project.data.baseSlug}
+                                                title={project.data.title}
+                                                desc={project.data.shortDesc}
+                                                tech={project.data.tech}
+                                                company={project.data.company}
+                                                locale={locale}
+                                        />
+                                ))}
+                            </div>
+                        </section>
+                )}
+            </div>
+        </div>
+    </nav>
+</div>
+</body>
+</html>
+
+<style>
+    .container {
+        max-width: 1200px;
+    }
+
+    .page-header {
+        margin-bottom: 3rem;
+    }
+
+    .page-header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.8) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .page-subtitle {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.65);
+        max-width: 700px;
+    }
+
+    .items-container {
+        margin-bottom: 4rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .items-container:last-child {
+        border-bottom: none;
+    }
+
+    .section-title-container {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+        font-size: 1.85rem;
+        color: #fff;
+        margin: 0;
+        font-weight: 700;
+    }
+
+    .section-description {
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.5);
+        margin-bottom: 2rem;
+        margin-top: 0;
+    }
+
+    .category-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.35rem 0.85rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+
+    .pro-badge {
+        //background: var(--gradient-primary));
+        border: 1px solid var(--color-primary-light);
+        color: var(--color-primary);
+    }
+
+    .personal-badge {
+        //background: linear-gradient(135deg, rgba(34, 197, 94, 0.2) 0%, rgba(59, 130, 246, 0.2) 100%);
+        border: 1px solid rgba(34, 197, 94, 0.4);
+        color: #86efac;
+    }
+
+    .resource-items {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+        gap: 2rem;
+    }
+
+    @media (max-width: 768px) {
+        .page-header h1 {
+            font-size: 2rem;
+        }
+
+        .page-subtitle {
+            font-size: 1rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+        }
+
+        .resource-items {
+            grid-template-columns: 1fr;
+        }
+
+        .section-title-container {
+            flex-wrap: wrap;
+        }
+    }
+
+    @media (min-width: 1400px) {
+        .resource-items {
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        }
+    }
+</style>

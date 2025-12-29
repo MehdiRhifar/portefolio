@@ -1,11 +1,13 @@
 ---
+lang: "fr"
+baseSlug: "flowrs"
 title: "FlowRS - Multi order books crypto temps réel"
 shortDesc:
   - "Latence sub-10µs - P50: 9µs, P99: 195µs (optimisations CPU cache + fixed-point)"
   - "Multi-exchange - Agrégation temps réel de 4 exchanges crypto (Binance, Bybit, Kraken, Coinbase)"
   - "Architecture lock-free - Ring buffer atomique, DashMap concurrent, zero-allocation parsing"
   - "Design extensible - Plugin pattern, ajout d'exchange en ~200 lignes"
-tech: ["Rust", "Tokio (async)", "WebSocket", "DashMap", "Vue 3", "TypeScript"]
+tech: [ "Rust", "Tokio (async)", "WebSocket", "DashMap", "Vue 3", "TypeScript" ]
 category: "personal"
 featured: true
 order: 1
@@ -13,7 +15,8 @@ links:
   github: "https://github.com/MehdiRhifar/FlowRS"
 ---
 
-> **Note** : Ce projet n'est pas déployé en production en raison des coûts de bande passante. Une démonstration vidéo est disponible ci-dessous.
+> **Note** : Ce projet n'est pas déployé en production en raison des coûts de bande passante. Une démonstration vidéo
+> est disponible ci-dessous.
 
 ## Résultats de performance
 
@@ -41,7 +44,8 @@ links:
 
 ### 1. Order Book optimisé pour le cache CPU
 
-Les implémentations classiques utilisent `BTreeMap<Price, Quantity>` pour des opérations O(log n). FlowRS utilise un **Vec de taille fixe** :
+Les implémentations classiques utilisent `BTreeMap<Price, Quantity>` pour des opérations O(log n). FlowRS utilise un *
+*Vec de taille fixe** :
 
 ```
 BTreeMap (Classique)             Vec (FlowRS)
@@ -51,7 +55,9 @@ BTreeMap (Classique)             Vec (FlowRS)
 └─ O(log n) mais cache-cold      └─ O(n) mais L1/L2 cache-hot
 ```
 
-**Pourquoi ça gagne :** Avec 25 niveaux de prix (200 bytes), le carnet entier tient dans le cache L1. Les CPUs itèrent la mémoire contiguë ~100x plus vite que le pointer chasing. L'avantage théorique O(log n) disparaît quand chaque accès de nœud est un cache miss.
+**Pourquoi ça gagne :** Avec 25 niveaux de prix (200 bytes), le carnet entier tient dans le cache L1. Les CPUs itèrent
+la mémoire contiguë ~100x plus vite que le pointer chasing. L'avantage théorique O(log n) disparaît quand chaque accès
+de nœud est un cache miss.
 
 ### 2. Arithmétique entière fixed-point
 
@@ -68,6 +74,7 @@ fn fast_parse_u64(s: &str) -> Option<u64> {
 ```
 
 **Avantages :**
+
 - **Pas d'erreurs floating-point** - Représentation décimale exacte
 - **5-10x plus rapide que Decimal** - Opérations CPU natives
 - **8 bytes vs 16 bytes** - Meilleure utilisation du cache
@@ -75,7 +82,8 @@ fn fast_parse_u64(s: &str) -> Option<u64> {
 
 ### 3. Pipeline de métriques lock-free
 
-Le tracking de latence utilise un ring buffer avec opérations atomiques. Le calcul des percentiles tourne en tâche de fond :
+Le tracking de latence utilise un ring buffer avec opérations atomiques. Le calcul des percentiles tourne en tâche de
+fond :
 
 ```rust
 // Hot path : écriture atomique O(1)
@@ -92,6 +100,7 @@ fn update_percentiles(&self) {
 ```
 
 **Techniques :**
+
 - `index & MASK` au lieu de `index % SIZE` - Évite la division entière coûteuse
 - `select_nth_unstable()` - Sélection partielle O(n) vs tri O(n log n)
 - Buffers pré-alloués - Zero allocation dans le hot path
@@ -99,22 +108,24 @@ fn update_percentiles(&self) {
 ### 4. Modèle de concurrence
 
 **DashMap** (HashMap concurrent shardée) au lieu de `RwLock<HashMap>` :
+
 - 16 shards indépendants avec verrouillage fin
 - Plusieurs exchanges mettent à jour différents symboles sans contention
 
 **Tasks d'exchange isolées :**
+
 - Chaque exchange tourne dans sa propre task Tokio
 - Logique de reconnexion indépendante (une panne n'affecte pas les autres)
 - Récupération d'état automatique à la déconnexion
 
 ### Impact des optimisations
 
-| Optimisation           | Avant                          | Après                         |
-|------------------------|--------------------------------|-------------------------------|
-| Calcul des percentiles | Dans le hot path (1.26ms P99)  | Tâche de fond (195µs P99)     |
-| Stockage des prix      | `Decimal`                      | `u64` - 5-10x plus rapide     |
-| Order book             | `BTreeMap`                     | `Vec` - Cache-friendly        |
-| Buffer de métriques    | `Mutex<Vec>`                   | Ring buffer lock-free         |
+| Optimisation           | Avant                         | Après                     |
+|------------------------|-------------------------------|---------------------------|
+| Calcul des percentiles | Dans le hot path (1.26ms P99) | Tâche de fond (195µs P99) |
+| Stockage des prix      | `Decimal`                     | `u64` - 5-10x plus rapide |
+| Order book             | `BTreeMap`                    | `Vec` - Cache-friendly    |
+| Buffer de métriques    | `Mutex<Vec>`                  | Ring buffer lock-free     |
 
 ---
 
@@ -168,6 +179,7 @@ impl NewExchangeConnector {
 ## Stack technique
 
 **Backend (Rust)**
+
 - Tokio async runtime
 - tokio-tungstenite (WebSocket)
 - DashMap (HashMap concurrent)
@@ -175,6 +187,7 @@ impl NewExchangeConnector {
 - jemalloc allocator
 
 **Frontend (Vue 3 + TypeScript)**
+
 - Vite build tool
 - Composition API
 - WebSocket natif

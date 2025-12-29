@@ -1,8 +1,11 @@
 ---
-const { slug, title, desc, tech, company } = Astro.props;
+import {useTranslations} from '../i18n/utils';
+
+const {slug, title, desc, tech, company, locale = 'fr'} = Astro.props;
+const t = useTranslations(locale);
 ---
 
-<a href={`/projects/${slug}`} class="card project-card">
+<a href={`/${locale}/projects/${slug}`} class="card project-card">
   <div class="card-header">
     <h3>{title}</h3>
     {company && (
@@ -21,13 +24,13 @@ const { slug, title, desc, tech, company } = Astro.props;
 
   <div class="card-footer">
     <div class="tech-section">
-      <div class="mini-label-white">Technologies</div>
+        <div class="mini-label-white">{t.projectDetail.technologies}</div>
       <div class="chips-container">
         {tech.slice(0, 4).map(techItem => <div class="single-chip">{techItem}</div>)}
         {tech.length > 4 && <div class="single-chip more-chip">+{tech.length - 4}</div>}
       </div>
     </div>
-    <div class="view-more">Voir détails →</div>
+      <div class="view-more">{t.projects.viewDetails}</div>
   </div>
 </a>
 

@@ -1,8 +1,10 @@
-import { defineCollection, z } from 'astro:content';
+import {defineCollection, z} from 'astro:content';
 
 const projectsCollection = defineCollection({
   type: 'content',
   schema: z.object({
+    lang: z.enum(['fr', 'en']),
+    baseSlug: z.string(),
     title: z.string(),
     shortDesc: z.array(z.string()),
     tech: z.array(z.string()),
@@ -21,6 +23,8 @@ const projectsCollection = defineCollection({
 const experiencesCollection = defineCollection({
   type: 'content',
   schema: z.object({
+    lang: z.enum(['fr', 'en']),
+    baseSlug: z.string(),
     company: z.string(),
     role: z.string(),
     startDate: z.string(),
@@ -37,6 +41,8 @@ const experiencesCollection = defineCollection({
 const educationCollection = defineCollection({
   type: 'content',
   schema: z.object({
+    lang: z.enum(['fr', 'en']),
+    baseSlug: z.string(),
     school: z.string(),
     degree: z.string(),
     field: z.string().optional(),

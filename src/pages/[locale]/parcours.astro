@@ -1,0 +1,207 @@
+---
+import {getCollection} from 'astro:content';
+import {useTranslations} from '../../i18n/utils';
+import Header from '../../components/Header.astro';
+import Sidebar from '../../components/Sidebar.astro';
+import TimelineItem from '../../components/TimelineItem.astro';
+
+export function getStaticPaths() {
+    return [
+        {params: {locale: 'fr'}},
+        {params: {locale: 'en'}}
+    ];
+}
+
+const {locale} = Astro.params;
+const t = useTranslations(locale);
+
+// Récupérer expériences et formations - filtrer par dossier locale
+const experiences = (await getCollection('experiences', (entry) => {
+    return entry.id.startsWith(`${locale}/`);
+})).sort((a, b) => {
+    const dateA = parseInt(a.data.startDate.replace('-', ''));
+    const dateB = parseInt(b.data.startDate.replace('-', ''));
+    return dateB - dateA;
+});
+
+const education = (await getCollection('education', (entry) => {
+    return entry.id.startsWith(`${locale}/`);
+})).sort((a, b) => {
+    const dateA = parseInt(a.data.startDate.replace('-', ''));
+    const dateB = parseInt(b.data.startDate.replace('-', ''));
+    return dateB - dateA;
+});
+
+// Formater les dates pour l'affichage
+function formatDate(startDate: string, locale: string, endDate?: string) {
+    const [year, month] = startDate.split('-');
+    const monthsFr = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc'];
+    const monthsEn = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const months = locale === 'fr' ? monthsFr : monthsEn;
+
+    const start = month ? `${months[parseInt(month) - 1]} ${year}` : year;
+
+    if (!endDate) {
+        const present = locale === 'fr' ? "Aujourd'hui" : 'Present';
+        return `${start} - ${present}`;
+    }
+
+    const [endYear, endMonth] = endDate.split('-');
+    const end = endMonth ? `${months[parseInt(endMonth) - 1]} ${endYear}` : endYear;
+
+    return `${start} - ${end}`;
+}
+---
+
+<!DOCTYPE html>
+<html>
+<Header title={`${t.parcours.title} | Mehdi Rhifar`}/>
+<body>
+<div class="content">
+    <Sidebar selectedItem="parcours" locale={locale}/>
+    <nav class="main">
+        <div class="container">
+            <div class="back-nav-container">
+                <a href={`/${locale}/`} class="back-nav-button w-inline-block" id="back-button">
+                    <img src="/assets/back.svg" loading="lazy" alt="" class="back-nav-img"/>
+                    <div>{t.common.back}</div>
+                </a>
+            </div>
+            <div class="content-container">
+                <h1>{t.parcours.title}</h1>
+                <p class="lead">
+                    {t.parcours.subtitle}
+                </p>
+
+                <div class="timeline-section">
+                    <div class="category-header">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2">
+                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                        </svg>
+                        <h2 class="timeline-category">{t.parcours.experiencesTitle}</h2>
+                    </div>
+                    <div class="timeline-container">
+                        {experiences.map(exp => (
+                                <TimelineItem
+                                        title={exp.data.role}
+                                        subtitle={exp.data.company}
+                                        date={formatDate(exp.data.startDate, locale, exp.data.endDate)}
+                                        location={exp.data.location}
+                                        highlights={exp.data.achievements}
+                                        type="experience"
+                                />
+                        ))}
+                    </div>
+
+                    <div class="category-header education">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2">
+                            <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                            <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                        </svg>
+                        <h2 class="timeline-category">{t.parcours.educationTitle}</h2>
+                    </div>
+                    <div class="timeline-container">
+                        {education.map(edu => (
+                                <TimelineItem
+                                        title={edu.data.degree}
+                                        subtitle={edu.data.school}
+                                        date={formatDate(edu.data.startDate, locale, edu.data.endDate)}
+                                        location={edu.data.location}
+                                        type="education"
+                                />
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<style>
+    .container {
+        max-width: 900px;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.8) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.65);
+        margin-bottom: 3rem;
+        max-width: 700px;
+    }
+
+    .inline-link {
+        color: var(--color-primary);
+        text-decoration: none;
+        border-bottom: 1px solid var(--color-primary);
+        transition: all 0.2s;
+    }
+
+    .inline-link:hover {
+        color: var(--color-primary-light);
+        border-bottom-color: var(--color-primary-light);
+    }
+
+    .timeline-section {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+    }
+
+    .category-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+        padding-top: 0.5rem;
+    }
+
+    .category-header svg {
+        color: var(--color-primary);
+    }
+
+    .category-header.education svg {
+        color: #86efac;
+    }
+
+    .timeline-category {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #fff;
+        margin: 0;
+    }
+
+    .timeline-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 2rem;
+        }
+
+        .lead {
+            font-size: 1rem;
+        }
+
+        .timeline-category {
+            font-size: 1.25rem;
+        }
+    }
+</style>
+</body>
+</html>

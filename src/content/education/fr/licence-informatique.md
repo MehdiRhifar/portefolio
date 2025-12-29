@@ -1,4 +1,6 @@
 ---
+lang: "fr"
+baseSlug: "licence-informatique"
 school: "Université Gustave Eiffel"
 degree: "Licence Mathématiques et Informatique"
 startDate: "2018-09"

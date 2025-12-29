@@ -1,0 +1,357 @@
+---
+import {getCollection, type CollectionEntry} from 'astro:content';
+import {useTranslations} from '../../../i18n/utils';
+import Header from '../../../components/Header.astro';
+import Sidebar from '../../../components/Sidebar.astro';
+
+export async function getStaticPaths() {
+    const locales = ['fr', 'en'];
+    const paths = [];
+
+    for (const locale of locales) {
+        const projects = await getCollection('projects', (entry) => entry.id.startsWith(`${locale}/`));
+        for (const project of projects) {
+            // Extract slug from entry.id (e.g., "fr/flowrs" -> "flowrs")
+            const slug = project.id.replace(`${locale}/`, '').replace('.md', '');
+            paths.push({
+                params: {locale, slug},
+                props: {project},
+            });
+        }
+    }
+
+    return paths;
+}
+
+type Props = {
+    project: CollectionEntry<'projects'>;
+};
+
+const {locale} = Astro.params;
+const {project} = Astro.props;
+const t = useTranslations(locale);
+const {Content} = await project.render();
+---
+
+<!DOCTYPE html>
+<html>
+<Header title={`${project.data.title} | Mehdi Rhifar`} locale={locale}/>
+<body>
+<div class="content">
+    <Sidebar selectedItem="projects" locale={locale}/>
+    <nav class="main">
+        <div class="container">
+            <div class="back-nav-container">
+                <a href={`/${locale}/projects`} class="back-nav-button w-inline-block" id="back-button">
+                    <img src="/assets/back.svg" loading="lazy" alt="" class="back-nav-img"/>
+                    <div>{t.common.back}</div>
+                </a>
+            </div>
+            <div class="content-container">
+                <!-- Project Header with Badges -->
+                <div class="project-meta">
+                    {project.data.featured && (
+                            <span class="featured-badge">★ Featured</span>
+                    )}
+                    {project.data.company && (
+                            <span class="company-badge">
+                  <span class="badge-icon">🏢</span>
+                                {project.data.company}
+                </span>
+                    )}
+                </div>
+
+                <h1>{project.data.title}</h1>
+
+                <!-- Technologies & Tools -->
+                <div>
+                    <div class="mini-label-white">{t.projectDetail.technologies}</div>
+                    <div class="chips-container">
+                        {project.data.tech.map(techItem => (
+                                <div class="single-chip">{techItem}</div>
+                        ))}
+                    </div>
+                </div>
+
+                <!-- Links -->
+                {project.data.links && (
+                        <div class="project-links">
+                            {project.data.links.github && (
+                                    <a href={project.data.links.github} target="_blank" rel="noopener noreferrer"
+                                       class="project-link">
+                                        <img src="/assets/code.svg" alt="" class="link-icon"/>
+                                        <div class="link-content">
+                                            <div class="link-title">{t.projectDetail.github}</div>
+                                            <div class="link-url">{project.data.links.github.replace(/^https?:\/\//, '').replace("github.com/", '')}</div>
+                                        </div>
+                                    </a>
+                            )}
+                            {project.data.links.demo && (
+                                    <a href={project.data.links.demo} target="_blank" rel="noopener noreferrer"
+                                       class="project-link">
+                                        <img src="/assets/browser.svg" alt="" class="link-icon"/>
+                                        <div class="link-content">
+                                            <div class="link-title">{t.projectDetail.demo}</div>
+                                            <div class="link-url">{project.data.links.demo.replace(/^https?:\/\//, '')}</div>
+                                        </div>
+                                    </a>
+                            )}
+                            {project.data.links.npm && (
+                                    <a href={project.data.links.npm} target="_blank" rel="noopener noreferrer"
+                                       class="project-link">
+                                        <div class="link-content">
+                                            <div class="link-title">📦 {t.projectDetail.npm}</div>
+                                            <div class="link-url">{project.data.links.npm.replace(/^https?:\/\//, '')}</div>
+                                        </div>
+                                    </a>
+                            )}
+                        </div>
+                )}
+
+                <!-- Project Content -->
+                <article class="project-content">
+                    <Content/>
+                </article>
+            </div>
+        </div>
+    </nav>
+</div>
+</body>
+</html>
+
+<style>
+    .container {
+        max-width: 900px;
+    }
+
+    .project-meta {
+        display: flex;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+    }
+
+    .featured-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.35rem 0.85rem;
+        background: linear-gradient(135deg, rgba(234, 179, 8, 0.15) 0%, rgba(234, 179, 8, 0.05) 100%);
+        border: 1px solid rgba(234, 179, 8, 0.4);
+        border-radius: 20px;
+        color: #fde047;
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+
+    .company-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.35rem 0.85rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+
+    .badge-icon {
+        font-size: 0.9rem;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+        background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.8) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1.2;
+    }
+
+    .mini-label-white {
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.5);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 0.75rem;
+        font-weight: 600;
+    }
+
+    .chips-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .single-chip {
+        padding: 0.4rem 0.9rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 6px;
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.7);
+        transition: all 0.2s;
+    }
+
+    .single-chip:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .project-links {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        margin-bottom: 3rem;
+        flex-wrap: wrap;
+    }
+
+    .project-link {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem 1.25rem;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all 0.2s;
+    }
+
+    .project-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem 1.25rem;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all 0.2s;
+    }
+
+    .project-link:hover {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(255, 255, 255, 0.15);
+        transform: translateY(-2px);
+    }
+
+    .link-icon {
+        width: 20px;
+        height: 20px;
+        opacity: 0.7;
+    }
+
+    .link-content {
+        flex: 0 1 auto;
+    }
+
+    .link-title {
+        font-size: 0.9rem;
+        color: #fff;
+        font-weight: 500;
+        margin-bottom: 0.25rem;
+    }
+
+    .link-url {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .project-content {
+        color: rgba(255, 255, 255, 0.8);
+        line-height: 1.8;
+    }
+
+    .project-content :global(h2) {
+        font-size: 1.75rem;
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+        color: #fff;
+    }
+
+    .project-content :global(h3) {
+        font-size: 1.35rem;
+        margin-top: 2rem;
+        margin-bottom: 0.75rem;
+        color: #fff;
+    }
+
+    .project-content :global(p) {
+        margin-bottom: 1.25rem;
+    }
+
+    .project-content :global(ul),
+    .project-content :global(ol) {
+        margin: 1.25rem 0;
+        padding-left: 1.5rem;
+    }
+
+    .project-content :global(li) {
+        margin-bottom: 0.5rem;
+    }
+
+    .project-content :global(code) {
+        background: rgba(255, 255, 255, 0.08);
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.9em;
+        font-family: 'Monaco', 'Courier New', monospace;
+    }
+
+    .project-content :global(pre) {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 1.25rem;
+        border-radius: 8px;
+        overflow-x: auto;
+        margin: 1.5rem 0;
+    }
+
+    .project-content :global(pre code) {
+        background: none;
+        padding: 0;
+    }
+
+    .project-content :global(blockquote) {
+        border-left: 3px solid rgba(255, 255, 255, 0.2);
+        padding-left: 1.25rem;
+        margin: 1.5rem 0;
+        font-style: italic;
+        color: rgba(255, 255, 255, 0.65);
+    }
+
+    .project-content :global(table) {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.5rem 0;
+    }
+
+    .project-content :global(th),
+    .project-content :global(td) {
+        padding: 0.75rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: left;
+    }
+
+    .project-content :global(th) {
+        background: rgba(255, 255, 255, 0.05);
+        font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 2rem;
+        }
+
+        .project-content :global(h2) {
+            font-size: 1.5rem;
+        }
+
+        .project-content :global(h3) {
+            font-size: 1.25rem;
+        }
+    }
+</style>

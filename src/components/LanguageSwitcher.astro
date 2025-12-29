@@ -1,0 +1,89 @@
+---
+const {currentLocale, currentPath} = Astro.props;
+
+// Generate alternate URL
+function getAlternateUrl(path: string, targetLocale: string) {
+    // Remove current locale prefix
+    const pathWithoutLocale = path.replace(/^\/(fr|en)/, '');
+    // Add target locale
+    return `/${targetLocale}${pathWithoutLocale || '/'}`;
+}
+
+const frUrl = getAlternateUrl(currentPath, 'fr');
+const enUrl = getAlternateUrl(currentPath, 'en');
+---
+
+<div class="language-switcher-wrapper">
+    <div class="language-switcher">
+        <a
+                href={frUrl}
+                class={`lang-button ${currentLocale === 'fr' ? 'active' : ''}`}
+                aria-label="Switch to French"
+                title="Français"
+        >
+            🇫🇷
+        </a>
+        <a
+                href={enUrl}
+                class={`lang-button ${currentLocale === 'en' ? 'active' : ''}`}
+                aria-label="Switch to English"
+                title="English"
+        >
+            🇬🇧
+        </a>
+    </div>
+</div>
+
+<style>
+    .language-switcher-wrapper {
+        margin-top: auto;
+        padding-top: 1rem;
+    }
+
+    .language-switcher {
+        display: flex;
+        gap: 0.25rem;
+        padding: 0.25rem;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        width: fit-content;
+    }
+
+    .lang-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        padding: 0;
+        border-radius: 4px;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        border: 1px solid transparent;
+        background: transparent;
+        font-size: 1rem;
+        line-height: 1;
+    }
+
+    .lang-button:hover {
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    .lang-button.active {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    @media (max-width: 768px) {
+        .language-switcher-wrapper {
+            padding-top: 0.5rem;
+        }
+
+        .lang-button {
+            width: 32px;
+            height: 32px;
+            font-size: 1.1rem;
+        }
+    }
+</style>

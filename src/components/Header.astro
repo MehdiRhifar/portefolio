@@ -1,17 +1,30 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
+import {getAlternateLinks} from '../i18n/utils';
+
 interface HeaderProps {
   title: string;
+  locale?: string;
 }
-const { title } = Astro.props as HeaderProps;
+
+const {title, locale = 'fr'} = Astro.props as HeaderProps;
+const currentPath = Astro.url.pathname;
+const {alternates} = getAlternateLinks(currentPath, locale);
 ---
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <title>{title}</title>
   <ViewTransitions />
+
+  <!-- SEO Language alternates -->
+  <link rel="alternate" hreflang="fr" href={`https://mehdirhifar.com${alternates.fr}`}/>
+  <link rel="alternate" hreflang="en" href={`https://mehdirhifar.com${alternates.en}`}/>
+  <link rel="alternate" hreflang="x-default" href={`https://mehdirhifar.com${alternates.fr}`}/>
+
   <meta content={title} property="og:title" />
   <meta content={title} property="twitter:title" />
+  <meta property="og:locale" content={locale === 'fr' ? 'fr_FR' : 'en_US'}/>
   <meta content="width=device-width, initial-scale=1" name="viewport" />
   <link href="/assets/variables.css" rel="stylesheet" type="text/css" />
   <link href="/assets/styles.css" rel="stylesheet" type="text/css" />

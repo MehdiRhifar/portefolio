@@ -1,0 +1,563 @@
+---
+import Header from "../../components/Header.astro";
+import Sidebar from "../../components/Sidebar.astro";
+import {useTranslations} from "../../i18n/utils";
+
+export function getStaticPaths() {
+    return [
+        {params: {locale: 'fr'}},
+        {params: {locale: 'en'}}
+    ];
+}
+
+const {locale} = Astro.params;
+const t = useTranslations(locale);
+---
+
+<!DOCTYPE html>
+<html>
+<Header title={`Mehdi Rhifar - ${t.meta.jobTitle}`}/>
+<body>
+<div class="content">
+    <Sidebar selectedItem="home" locale={locale}/>
+    <nav class="main">
+        <div class="container">
+            <main class="fold-content-container">
+                <div class="fold-content">
+                    <h1 set:html={t.home.hero.title}></h1>
+                    <p class="lead" set:html={t.home.hero.subtitle}></p>
+
+                    <!-- Section Stats -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number">10 000+</div>
+                            <div class="stat-label">{t.home.stats.users}</div>
+                            <div class="stat-description">{t.home.stats.usersDesc}</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">+1M</div>
+                            <div class="stat-label">{t.home.stats.messages}</div>
+                            <div class="stat-description">{t.home.stats.messagesDesc}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cta-buttons">
+                    <a href={`/${locale}/projects`} class="button w-button primary-button">{t.home.cta.projects}</a>
+                    <a href={`/${locale}/parcours`} class="button w-button secondary-button">{t.home.cta.parcours}</a>
+                </div>
+            </main>
+
+            <!-- Section Domaines d'expertise -->
+            <div class="expertise-section">
+                <div class="section-header">
+                    <h2>{t.home.expertise.title}</h2>
+                </div>
+
+                <div class="expertise-grid">
+                    <div class="expertise-card">
+                        <div class="expertise-icon">⚡</div>
+                        <h3 class="expertise-title">{t.home.expertise.perf.title}</h3>
+                        <p class="expertise-description">
+                            {t.home.expertise.perf.desc}
+                        </p>
+                    </div>
+
+                    <div class="expertise-card">
+                        <div class="expertise-icon">🤖</div>
+                        <h3 class="expertise-title">{t.home.expertise.ai.title}</h3>
+                        <p class="expertise-description">
+                            {t.home.expertise.ai.desc}
+                        </p>
+                    </div>
+
+                    <div class="expertise-card">
+                        <div class="expertise-icon">🔧</div>
+                        <h3 class="expertise-title">{t.home.expertise.backend.title}</h3>
+                        <p class="expertise-description">
+                            {t.home.expertise.backend.desc}
+                        </p>
+                    </div>
+
+                    <div class="expertise-card">
+                        <div class="expertise-icon">💾</div>
+                        <h3 class="expertise-title">{t.home.expertise.database.title}</h3>
+                        <p class="expertise-description">
+                            {t.home.expertise.database.desc}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="tech-stack">
+                    <p class="tech-stack-label">{t.home.techStack.label}</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Python (FastAPI, Flask, Django)</span>
+                        <span class="tech-tag">Java (Spring)</span>
+                        <span class="tech-tag">C++ / Rust</span>
+                        <span class="tech-tag">Angular + (React / VueJs)</span>
+                        <span class="tech-tag">Database (Sql, NoSql)</span>
+                        <span class="tech-tag">LangChain (Agent, Rag...)</span>
+                        <span class="tech-tag">Kafka</span>
+                        <span class="tech-tag">Cloud Azure</span>
+                        <span class="tech-tag">Devops (CI/CD, infra)</span>
+                    </div>
+                </div>
+
+                <!-- Section Contact -->
+                <div class="contact-section">
+                    <div class="section-header">
+                        <h2>{t.home.contact.title}</h2>
+                    </div>
+                    <p class="contact-intro">
+                        {t.home.contact.intro}
+                    </p>
+                    <div class="contact-grid">
+                        <button class="contact-card" id="email-card" data-email="mehdi.rhifar@gmail.com">
+                            <div class="contact-card-icon">✉️</div>
+                            <div class="contact-card-content">
+                                <div class="contact-card-label">{t.home.contact.email.label}</div>
+                                <div class="contact-card-value">mehdi.rhifar@gmail.com</div>
+                                <div class="contact-card-hint">{t.home.contact.email.hint}</div>
+                            </div>
+                        </button>
+
+                        <a href="https://github.com/MehdiRhifar" target="_blank" rel="noopener noreferrer"
+                           class="contact-card">
+                            <div class="contact-card-icon">💻</div>
+                            <div class="contact-card-content">
+                                <div class="contact-card-label">{t.home.contact.github.label}</div>
+                                <div class="contact-card-value">@MehdiRhifar</div>
+                            </div>
+                        </a>
+
+                        <a href="https://www.linkedin.com/in/mehdi-rhifar-1a90a1161/" target="_blank"
+                           rel="noopener noreferrer" class="contact-card">
+                            <div class="contact-card-icon">💼</div>
+                            <div class="contact-card-content">
+                                <div class="contact-card-label">{t.home.contact.linkedin.label}</div>
+                                <div class="contact-card-value">Mehdi Rhifar</div>
+                            </div>
+                        </a>
+
+                        <a href="/assets/CV_Mehdi_Rhifar.pdf" target="_blank" rel="noopener noreferrer"
+                           class="contact-card">
+                            <div class="contact-card-icon">📄</div>
+                            <div class="contact-card-content">
+                                <div class="contact-card-label">{t.home.contact.cv.label}</div>
+                                <div class="contact-card-value">{t.home.contact.cv.value}</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+</body>
+</html>
+
+<style>
+    /* ========================================
+       Page d'accueil - Styles personnalisés
+       Utilise les variables CSS globales
+       ======================================== */
+
+    /* ========================================
+       Typography & Hero Section
+       ======================================== */
+    .fold-content h1 {
+        font-size: 2.75rem;
+        line-height: 1.2;
+        margin-bottom: var(--spacing-md);
+        background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.8) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .fold-content .lead {
+        font-size: 1.2rem;
+        line-height: 1.7;
+        color: var(--color-text-secondary);
+        margin-bottom: var(--spacing-lg);
+        max-width: 650px;
+    }
+
+    /* ========================================
+       Stats Section
+       ======================================== */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1.25rem;
+        margin-top: var(--spacing-xl);
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .stat-card {
+        background: var(--bg-card-default);
+        border: 1px solid var(--border-default);
+        border-radius: var(--radius-lg);
+        padding: var(--spacing-md) 1.25rem;
+        text-align: center;
+        transition: var(--transition-normal);
+    }
+
+    .stat-card:hover {
+        background: var(--bg-card-hover);
+        border-color: var(--border-accent);
+        transform: translateY(-3px);
+    }
+
+    .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: var(--spacing-xs);
+        padding: 0.3rem;
+    }
+
+    .stat-label {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 500;
+        margin-bottom: 0.25rem;
+    }
+
+    .stat-description {
+        font-size: 0.75rem;
+        color: var(--color-text-dimmed);
+        line-height: 1.4;
+    }
+
+    /* ========================================
+       CTA Buttons
+       ======================================== */
+
+    .cta-buttons {
+        display: flex;
+        gap: var(--spacing-sm);
+        margin-top: var(--spacing-lg);
+        flex-wrap: wrap;
+    }
+
+    .button {
+        padding: 0.875rem 1.75rem;
+        border-radius: var(--radius-md);
+        text-decoration: none;
+        font-weight: 500;
+        transition: var(--transition-normal);
+        display: inline-block;
+    }
+
+    .primary-button {
+        background: var(--gradient-primary);
+        color: var(--color-text-primary);
+    }
+
+    .primary-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px var(--border-accent-hover);
+    }
+
+    .secondary-button {
+        background: var(--bg-overlay-medium);
+        color: var(--color-text-primary);
+        border: 1px solid var(--border-strong);
+    }
+
+    .secondary-button:hover {
+        transform: translateY(-2px);
+        background: var(--bg-overlay-strong);
+        border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* ========================================
+       Expertise Section
+       ======================================== */
+
+    .expertise-section {
+        padding-top: var(--spacing-2xl);
+        border-top: 1px solid var(--border-dimmed);
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--spacing-xl);
+    }
+
+    .section-header h2 {
+        font-size: 2rem;
+        margin: 0;
+        color: var(--color-text-primary);
+    }
+
+    .view-all-link {
+        color: rgba(255, 255, 255, 0.6);
+        text-decoration: none;
+        font-size: 0.95rem;
+        transition: color 0.3s ease;
+    }
+
+    .view-all-link:hover {
+        color: var(--color-primary-start);
+    }
+
+    .expertise-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-2xl);
+    }
+
+    .expertise-card {
+        background: var(--bg-card-elevated);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg);
+        padding: 1.75rem;
+        transition: var(--transition-normal);
+    }
+
+    .expertise-card:hover {
+        background: var(--bg-card-hover);
+        border-color: var(--border-medium);
+        transform: translateY(-4px);
+    }
+
+    .expertise-icon {
+        font-size: 2.5rem;
+        margin-bottom: var(--spacing-sm);
+        display: block;
+    }
+
+    .expertise-title {
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: var(--color-text-primary);
+        margin: 0 0 0.75rem 0;
+    }
+
+    .expertise-description {
+        font-size: 0.9rem;
+        color: var(--color-text-muted);
+        line-height: 1.5;
+        margin: 0;
+    }
+
+    /* ========================================
+       Tech Stack
+       ======================================== */
+
+    .tech-stack {
+        padding-top: var(--spacing-lg);
+        border-top: 1px solid var(--border-subtle);
+    }
+
+    .tech-stack-label {
+        font-size: 0.85rem;
+        color: var(--color-text-dimmed);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .tech-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-xs);
+    }
+
+    .tech-tag {
+        padding: 0.4rem 0.9rem;
+        background: var(--bg-overlay-light);
+        border: 1px solid var(--border-default);
+        border-radius: var(--radius-sm);
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.7);
+        transition: var(--transition-fast);
+    }
+
+    .tech-tag:hover {
+        background: var(--bg-overlay-medium);
+        border-color: var(--border-medium);
+        color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* ========================================
+       Contact Section
+       ======================================== */
+
+    .contact-section {
+        margin-top: var(--spacing-3xl);
+        padding-top: var(--spacing-2xl);
+        border-top: 1px solid var(--border-default);
+    }
+
+    .contact-intro {
+        font-size: 1rem;
+        color: var(--color-text-muted);
+        margin-bottom: var(--spacing-lg);
+        line-height: 1.6;
+    }
+
+    .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.25rem;
+    }
+
+    .contact-card {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+        background: var(--bg-card-elevated);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg);
+        padding: var(--spacing-md);
+        text-decoration: none;
+        transition: var(--transition-normal);
+        cursor: pointer;
+        width: 100%;
+        text-align: left;
+    }
+
+    button.contact-card {
+        font-family: inherit;
+    }
+
+    .contact-card:hover {
+        background: var(--bg-card-hover);
+        border-color: var(--border-accent-hover);
+        transform: translateY(-2px);
+    }
+
+    .contact-card-icon {
+        font-size: 2rem;
+        flex-shrink: 0;
+    }
+
+    .contact-card-content {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        min-width: 0;
+    }
+
+    .contact-card-label {
+        font-size: 0.8rem;
+        color: var(--color-text-dimmed);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .contact-card-value {
+        font-size: 0.95rem;
+        color: var(--color-text-primary);
+        font-weight: 500;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .contact-card-hint {
+        font-size: 0.75rem;
+        color: var(--color-text-subtle);
+        margin-top: 0.25rem;
+    }
+
+    #email-card.copied .contact-card-hint {
+        color: var(--color-success);
+    }
+
+    /* ========================================
+       Responsive (Mobile)
+       ======================================== */
+
+    @media (max-width: 768px) {
+        .fold-content h1 {
+            font-size: 2rem;
+        }
+
+        .fold-content .lead {
+            font-size: 1.05rem;
+        }
+
+        .stats-grid {
+            grid-template-columns: 1fr;
+            gap: var(--spacing-sm);
+        }
+
+        .stat-card {
+            padding: 1.25rem var(--spacing-sm);
+        }
+
+        .stat-number {
+            font-size: 1.75rem;
+        }
+
+        .cta-buttons {
+            flex-direction: column;
+        }
+
+        .button {
+            text-align: center;
+        }
+
+        .expertise-grid {
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+        }
+
+        .expertise-card {
+            padding: var(--spacing-md);
+        }
+
+        .expertise-icon {
+            font-size: 2rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.5rem;
+        }
+
+        .contact-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .contact-card {
+            padding: 1.25rem;
+        }
+    }
+</style>
+
+<script define:vars={{clickToCopy: t.common.clickToCopy, copied: t.common.copied}}>
+    // Copier l'email au clic
+    const emailCard = document.getElementById('email-card');
+    if (emailCard) {
+        emailCard.addEventListener('click', async () => {
+            const email = emailCard.getAttribute('data-email');
+            if (email) {
+                try {
+                    await navigator.clipboard.writeText(email);
+                    const hint = emailCard.querySelector('.contact-card-hint');
+                    if (hint) {
+                        const originalText = hint.textContent;
+                        hint.textContent = copied;
+                        emailCard.classList.add('copied');
+
+                        setTimeout(() => {
+                            hint.textContent = originalText;
+                            emailCard.classList.remove('copied');
+                        }, 2000);
+                    }
+                } catch (err) {
+                    console.error('Erreur lors de la copie:', err);
+                }
+            }
+        });
+    }
+</script>

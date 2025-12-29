@@ -1,4 +1,6 @@
 ---
+lang: "fr"
+baseSlug: "mbda-france"
 company: "MBDA France"
 role: "Développeur Logiciel C++ - Stage"
 startDate: "2022-04"
@@ -8,6 +10,6 @@ description: "Stage de développement d'un outil de formation pour installation 
 achievements:
   - "Outil de formation C2 bas niveau en C++ → simulation réaliste pour opérateurs"
   - "Assurance qualité et sécurité des développements en contexte défense"
-skills: ["C++", "UML", "Tests unitaires"]
+skills: [ "C++", "UML", "Tests unitaires" ]
 order: 3
 ---
